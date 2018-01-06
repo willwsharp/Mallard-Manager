@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* temp location/color; move somewhere else eventually */
+.mat-grid-tile {
+    background: cornflowerblue;
+}
