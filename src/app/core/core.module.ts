@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { MaterialModule } from './material-components/material.module';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
     imports: [
-        MaterialModule
+        MaterialModule,
+        FlexLayoutModule
     ],
     exports: [
-        MaterialModule
+        MaterialModule,
+        FlexLayoutModule
     ]
 })
 export class CoreModule {
