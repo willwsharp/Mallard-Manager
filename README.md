@@ -1,2 +1,2 @@
 # MallardManager
-Helping you keep your ducks in a row
+Keeping your ducks in a row
