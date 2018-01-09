@@ -14,7 +14,7 @@ export class TimesheetService {
 
         for (let day = 1; day <= dayCount; day++) {
             let momentDate: moment.Moment = moment().year(requestedYear).month(requestedMonth).date(day);
-            let isWeekend: boolean = momentDate.day() === DayOfWeek.Saturday || momentDate.day() === DayOfWeek.Sunday;
+            let isWeekend: boolean = momentDate.day() === DayOfWeek.Sat || momentDate.day() === DayOfWeek.Sun;
             result.push({
                 date: momentDate.date(),
                 dayOfWeek: momentDate.day(),

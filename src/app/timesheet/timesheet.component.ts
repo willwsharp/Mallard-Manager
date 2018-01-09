@@ -19,6 +19,8 @@ export class TimesheetComponent {
     public displayWeekends: boolean = false;
     public dates: CalendarDate[] = [];
     public givenColumns: 5 | 7 = 5;
+    // we need to be able to iterate over the keys in the DayOfWeek enum
+    public dayOfWeek: typeof DayOfWeek = DayOfWeek;
     public daysOfWeek: string[] = _.filter(_.keys(DayOfWeek), (key) => !isNaN(Number(DayOfWeek[key])));
 
     @Input() givenMonth: Month;
@@ -29,7 +31,6 @@ export class TimesheetComponent {
     constructor(private timesheetService: TimesheetService) { 
         this.dates = this.timesheetService.getTimesheetDates(this.givenMonth, this.givenYear);
         this.datesWithoutWeekends = _.filter(this.dates, {isWeekend: false});
-        console.log(this.daysOfWeek);
     }
 
     public onDisplayWeekendChange(event: MatSlideToggleChange) {
