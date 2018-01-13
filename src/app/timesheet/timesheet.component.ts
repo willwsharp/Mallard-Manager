@@ -29,7 +29,6 @@ export class TimesheetComponent {
     private datesWithoutWeekends: CalendarDate[] = [];
 
     constructor(private timesheetService: TimesheetService) {
-        // this.dates = this.timesheetService.getTimesheetDates(this.givenMonth, this.givenYear);
         this.dates = this.timesheetService.getCalendar(this.givenMonth, this.givenYear);
         this.datesWithoutWeekends = _.filter(this.dates, {isWeekend: false});
     }

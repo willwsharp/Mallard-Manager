@@ -10,24 +10,6 @@ import { AppUtils } from '../core/util/AppUtils.util';
 @Injectable()
 export class TimesheetService {
 
-    public getTimesheetDates(requestedMonth: Month = 1, requestedYear: number = moment().year()): CalendarDate[] {
-        const result: CalendarDate[] = [];
-        const dayCount: number = moment().month(requestedMonth).daysInMonth();
-
-        for (let day = 1; day <= dayCount; day++) {
-            const momentDate: moment.Moment = moment().year(requestedYear).month(requestedMonth).date(day);
-            const isWeekend: boolean = momentDate.day() === DayOfWeek.Sat || momentDate.day() === DayOfWeek.Sun;
-            result.push({
-                date: momentDate.date(),
-                dayOfWeek: momentDate.day(),
-                month: momentDate.month(),
-                year: momentDate.year(),
-                isWeekend: isWeekend
-            });
-        }
-        return result;
-    }
-
     public getCalendar(requestedMonth: Month = 5, requestedYear: number = moment().year()): CalendarDate[] {
         const result: CalendarDate[] = [];
         const dayCount: number = moment().month(requestedMonth).daysInMonth();
