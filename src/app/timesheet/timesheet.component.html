@@ -3,9 +3,17 @@
 <br>
 <mat-grid-list [cols]="givenColumns">
     <ng-container *ngFor="let weekday of daysOfWeek">
-        <mat-grid-tile [style.background]="'white'" *ngIf="displayWeekends || (weekday !== dayOfWeek[dayOfWeek.Sun] && weekday !== dayOfWeek[dayOfWeek.Sat])">{{weekday}}</mat-grid-tile>
+        <mat-grid-tile [style.background]="'white'" *ngIf="displayWeekendTiles(weekday)">{{weekday}}</mat-grid-tile>
     </ng-container>
 </mat-grid-list>
+<!-- <mat-grid-list [cols]="givenColumns" rowHeight="1:1">
+    <ng-container *ngFor="let date of dates">
+        <mat-grid-tile *ngIf="displayWeekends || !date.isWeekend">
+            {{date.date}}
+        </mat-grid-tile>
+    </ng-container>
+</mat-grid-list> -->
+
 <mat-grid-list [cols]="givenColumns" rowHeight="1:1">
     <ng-container *ngFor="let date of dates">
         <mat-grid-tile *ngIf="displayWeekends || !date.isWeekend">

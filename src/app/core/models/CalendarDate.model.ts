@@ -1,5 +1,5 @@
-import { DayOfWeek } from "./DayOfWeek.enum";
-import { Month } from "./Month.enum";
+import { DayOfWeek } from './DayOfWeek.enum';
+import { Month } from './Month.enum';
 
 export interface CalendarDate {
     // number in month
