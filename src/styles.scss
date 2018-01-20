@@ -7,3 +7,8 @@
 .mat-grid-tile {
     border: 1px solid mat-color($mm-app-primary) ;
 }
+
+body {
+    font-family: $mat-font-family;
+    font-weight: normal
+}

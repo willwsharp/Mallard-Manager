@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { TimesheetDate } from './models/TimesheetDate.model';
+
 import * as moment from 'moment';
-import { CalendarDate } from '../core/models/CalendarDate.model';
-import { DayOfWeek } from '../core/models/DayOfWeek.enum';
-import { Month } from '../core/models/Month.enum';
-import { WeekDay } from '@angular/common/src/i18n/locale_data_api';
-import { AppUtils } from '../core/util/AppUtils.util';
+import { DayOfWeek } from '../../core/models/DayOfWeek.enum';
+import { Month } from '../../core/models/Month.enum';
+import { CalendarDate } from '../../core/models/CalendarDate.model';
+import { AppUtils } from '../../core/util/AppUtils.util';
+
 
 @Injectable()
-export class TimesheetService {
+export class CalendarService {
 
     public getCalendar(requestedMonth: Month = 5, requestedYear: number = moment().year()): CalendarDate[] {
         const result: CalendarDate[] = [];
@@ -23,13 +23,13 @@ export class TimesheetService {
             const momentDate: moment.Moment = moment().year(requestedYear).month(requestedMonth).date(currentDay);
             const isWeekend: boolean = momentDate.day() === DayOfWeek.Sat || momentDate.day() === DayOfWeek.Sun;
 
-            result.push({
-                date: momentDate.date(),
-                dayOfWeek: momentDate.day(),
-                month: momentDate.month(),
-                year: momentDate.year(),
-                isWeekend: isWeekend
-            });
+            result.push(new CalendarDate(
+                momentDate.date(),
+                momentDate.day(),
+                momentDate.month(),
+                momentDate.year(),
+                isWeekend
+            ));
 
             currentDay++;
 

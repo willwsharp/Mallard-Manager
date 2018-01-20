@@ -1,0 +1,10 @@
+#date-view-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#date-view-header {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}

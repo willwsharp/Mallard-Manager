@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { TimesheetService } from './timesheet.service';
 import { TimesheetDate } from './models/TimesheetDate.model';
 import { CalendarDate } from '../core/models/CalendarDate.model';
 import { Month } from '../core/models/Month.enum';
 import { MatSlideToggleChange } from '@angular/material';
 import * as _ from 'lodash';
 import { DayOfWeek } from '../core/models/DayOfWeek.enum';
+import { CalendarService } from './services/calendar.service';
 
 @Component({
     selector: 'mm-timesheet',
@@ -16,7 +16,11 @@ import { DayOfWeek } from '../core/models/DayOfWeek.enum';
 })
 export class TimesheetComponent {
 
-    @Input() givenMonth: Month;
+    /**
+     * TODO: give ability for users to set-up weekly timesheets
+     * instead of only monthly timesheets
+     */
+    @Input() givenMonth: Month = 2;
     @Input() givenYear: number;
 
     public displayWeekends = false;
@@ -25,24 +29,41 @@ export class TimesheetComponent {
     // we need to be able to iterate over the keys in the DayOfWeek enum
     public dayOfWeek: typeof DayOfWeek = DayOfWeek;
     public daysOfWeek: string[] = _.filter(_.keys(DayOfWeek), (key: any) => !isNaN(Number(DayOfWeek[key])));
+    public months: typeof Month = Month;
+
+    public dateSelected: CalendarDate = null;
 
     private datesWithoutWeekends: CalendarDate[] = [];
 
-    constructor(private timesheetService: TimesheetService) {
-        this.dates = this.timesheetService.getCalendar(this.givenMonth, this.givenYear);
+    constructor(private calendarService: CalendarService) {
+        this.dates = this.calendarService.getCalendar(this.givenMonth, this.givenYear);
         this.datesWithoutWeekends = _.filter(this.dates, {isWeekend: false});
     }
 
-    public onDisplayWeekendChange(event: MatSlideToggleChange) {
+    public onDisplayWeekendsToggled(event: MatSlideToggleChange) {
         this.displayWeekends = event.checked;
         this.givenColumns = this.displayWeekends ? 7 : 5;
     }
 
-    public displayWeekendTiles(day: string): boolean {
+    public displayingWeekendTiles(day: string): boolean {
         let toReturn = false;
         toReturn = toReturn || this.displayWeekends;
         toReturn = toReturn || (day !== DayOfWeek[DayOfWeek.Sun]) &&
             (day !== DayOfWeek[DayOfWeek.Sat]);
         return toReturn;
+    }
+
+    public notInCurrentMonth(date: CalendarDate): boolean {
+        return date.month !== this.givenMonth;
+    }
+
+    public viewTimesheetDateView(date: CalendarDate) {
+        if (!this.notInCurrentMonth(date)) {
+            this.dateSelected = date;
+        }
+    }
+
+    public returnToCalendarView() {
+        this.dateSelected = null;
     }
 }

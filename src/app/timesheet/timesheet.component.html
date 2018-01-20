@@ -1,23 +1,30 @@
-<mat-slide-toggle [checked]="displayWeekends" (change)="onDisplayWeekendChange($event)">Display weekends</mat-slide-toggle>
-<br>
-<br>
-<mat-grid-list [cols]="givenColumns">
-    <ng-container *ngFor="let weekday of daysOfWeek">
-        <mat-grid-tile [style.background]="'white'" *ngIf="displayWeekendTiles(weekday)">{{weekday}}</mat-grid-tile>
-    </ng-container>
-</mat-grid-list>
-<!-- <mat-grid-list [cols]="givenColumns" rowHeight="1:1">
-    <ng-container *ngFor="let date of dates">
-        <mat-grid-tile *ngIf="displayWeekends || !date.isWeekend">
-            {{date.date}}
-        </mat-grid-tile>
-    </ng-container>
-</mat-grid-list> -->
-
-<mat-grid-list [cols]="givenColumns" rowHeight="1:1">
-    <ng-container *ngFor="let date of dates">
-        <mat-grid-tile *ngIf="displayWeekends || !date.isWeekend">
-            {{date.date}}
-        </mat-grid-tile>
-    </ng-container>
-</mat-grid-list>
+<ng-container *ngIf="dateSelected; then dateView else calendarView"></ng-container>
+<ng-template #calendarView>
+    <div id="timesheet-container">
+        <h1 style="text-align: center;" class="mat-display-2">{{months[givenMonth]}}</h1>
+        <mat-slide-toggle [checked]="displayWeekends" (change)="onDisplayWeekendsToggled($event)">Display weekends</mat-slide-toggle>
+        <mat-grid-list [cols]="givenColumns">
+            <ng-container *ngFor="let weekday of daysOfWeek">
+                <mat-grid-tile [style.background]="'white'" *ngIf="displayingWeekendTiles(weekday)">{{weekday}}</mat-grid-tile>
+            </ng-container>
+        </mat-grid-list>
+        <mat-grid-list [cols]="givenColumns" rowHeight="1:1">
+            <ng-container *ngFor="let date of dates">
+                <mat-grid-tile *ngIf="displayWeekends || !date.isWeekend" 
+                [ngClass]="{'not-in-month': notInCurrentMonth(date)}"
+                (click)="viewTimesheetDateView(date)">
+                    {{date.date}}
+                </mat-grid-tile>
+            </ng-container>
+        </mat-grid-list>
+    </div>
+</ng-template>
+<ng-template #dateView>
+    <div>
+        <button (click)="returnToCalendarView()" mat-raised-button title="Go back">
+            <mat-icon>arrow_back</mat-icon>
+            <span>Back</span>
+        </button>
+        <mm-date-view [givenDate]="dateSelected"></mm-date-view>
+    </div>
+</ng-template>

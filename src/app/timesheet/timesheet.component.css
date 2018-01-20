@@ -1,0 +1,13 @@
+#timesheet-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.not-in-month {
+    background: darkgray;
+    opacity: .5;
+}
+
+mat-slide-toggle {
+    margin-bottom: 15px;
+}
