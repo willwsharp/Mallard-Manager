@@ -8,3 +8,8 @@
     display: flex;
     justify-content: center;
 }
+
+#date-viewer-header {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,67 @@
+<div id="time-slot-container">
+    <div id="time-slot-action-bar">
+        <button mat-icon-button (click)="addTimesheetEntry()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+    <div id="time-slot-content">
+        <ng-container *ngIf="givenTimeSlot.entries.length > 0; then timesheetEntryView else noEntries"></ng-container>
+    </div>
+    <!-- <mat-grid-list [cols]="1">
+        <mat-grid-tile (click)="toggleOptions()">
+            <mat-grid-tile-header *ngIf="displayOptionsBar" (click)="toggleOptions(true)">
+                <ng-container *ngIf="inEditMode; then editModeOptionsBar else viewModeOptionsBar"></ng-container>
+                <ng-template #viewModeOptionsBar>
+                    <button mat-icon-button (click)="enableEditMode()">
+                        <mat-icon>mode_edit</mat-icon>
+                    </button>
+                </ng-template>
+                <ng-template #editModeOptionsBar>
+                    <button mat-icon-button (click)="addTimesheetEntry()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </ng-template>
+            </mat-grid-tile-header>
+
+            <ng-container *ngIf="inEditMode; then editModeTemplate else viewModeTemplate"></ng-container>
+
+            <mat-grid-tile-footer *ngIf="inEditMode">
+                <button mat-icon-button (click)="cancelEdit()">
+                    <mat-icon>clear</mat-icon>
+                </button>
+                <span style="flex: 1 auto;"></span>
+                <button mat-icon-button (click)="saveEdit()">
+                    <mat-icon>save</mat-icon>
+                </button>
+            </mat-grid-tile-footer>
+        </mat-grid-tile>
+    </mat-grid-list> -->
+</div>
+
+<ng-template #timesheetEntryView>
+    <!-- display specific template if there aren't any entries yet -->
+    <mat-card *ngFor="let entry of givenTimeSlot.entries" class="timesheet-entry">
+        <mat-form-field [floatLabel]="'never'" placeholder="Project" style="margin-left: 0px;">
+            <mat-select>
+                <mat-option *ngFor="let project of availableProjects" [value]="project.name" (click)="projectSelected(project)">
+                    {{project.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field [floatLabel]="'never'" placeholder="Task">
+            <mat-select>
+                <mat-option *ngFor="let project of availableProjects" [value]="project.name">
+                    {{project.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput>
+        </mat-form-field>
+    </mat-card>
+</ng-template>
+
+<ng-template #noEntries>
+    <div class="mat-title" style="margin: auto;">No entries found</div>
+</ng-template>

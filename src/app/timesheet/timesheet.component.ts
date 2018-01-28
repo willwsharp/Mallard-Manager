@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { TimesheetDate } from './models/TimesheetDate.model';
 import { CalendarDate } from '../core/models/CalendarDate.model';
 import { Month } from '../core/models/Month.enum';
 import { MatSlideToggleChange } from '@angular/material';

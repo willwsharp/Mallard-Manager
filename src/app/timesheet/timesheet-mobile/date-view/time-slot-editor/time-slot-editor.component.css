@@ -1,0 +1,29 @@
+#time-slot-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#time-slot-action-bar {
+    display: flex;
+    flex-direction: row;
+}
+
+#time-slot-content {
+    display: flex;
+    flex-direction: column;
+    /* TODO: make sure this height is dynamic later */
+    height: 350px;
+    border: 1px solid black;
+    overflow: auto;
+}
+
+.timesheet-entry {
+    display: flex;
+    flex-direction: row;
+}
+
+mat-form-field {
+    width: 33%;
+    margin-left: 5px;
+}
+
