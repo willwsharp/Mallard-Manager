@@ -3,61 +3,50 @@
         <button mat-icon-button (click)="addTimesheetEntry()">
             <mat-icon>add</mat-icon>
         </button>
+        <span class="flex-space-filler"></span>
+        <button mat-icon-button (click)="save()" [disabled]="!canSave()">
+            <mat-icon>save</mat-icon>
+        </button>
     </div>
 
     <div id="time-slot-content">
-        <ng-container *ngIf="givenTimeSlot.entries.length > 0; then timesheetEntryView else noEntries"></ng-container>
+        <ng-container *ngIf="timeSlotHolder.entries.length > 0; then timesheetEntryView else noEntries"></ng-container>
     </div>
-    <!-- <mat-grid-list [cols]="1">
-        <mat-grid-tile (click)="toggleOptions()">
-            <mat-grid-tile-header *ngIf="displayOptionsBar" (click)="toggleOptions(true)">
-                <ng-container *ngIf="inEditMode; then editModeOptionsBar else viewModeOptionsBar"></ng-container>
-                <ng-template #viewModeOptionsBar>
-                    <button mat-icon-button (click)="enableEditMode()">
-                        <mat-icon>mode_edit</mat-icon>
-                    </button>
-                </ng-template>
-                <ng-template #editModeOptionsBar>
-                    <button mat-icon-button (click)="addTimesheetEntry()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </ng-template>
-            </mat-grid-tile-header>
-
-            <ng-container *ngIf="inEditMode; then editModeTemplate else viewModeTemplate"></ng-container>
-
-            <mat-grid-tile-footer *ngIf="inEditMode">
-                <button mat-icon-button (click)="cancelEdit()">
-                    <mat-icon>clear</mat-icon>
-                </button>
-                <span style="flex: 1 auto;"></span>
-                <button mat-icon-button (click)="saveEdit()">
-                    <mat-icon>save</mat-icon>
-                </button>
-            </mat-grid-tile-footer>
-        </mat-grid-tile>
-    </mat-grid-list> -->
 </div>
 
 <ng-template #timesheetEntryView>
     <!-- display specific template if there aren't any entries yet -->
-    <mat-card *ngFor="let entry of givenTimeSlot.entries" class="timesheet-entry">
-        <mat-form-field [floatLabel]="'never'" placeholder="Project" style="margin-left: 0px;">
-            <mat-select>
-                <mat-option *ngFor="let project of availableProjects" [value]="project.name" (click)="projectSelected(project)">
-                    {{project.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field [floatLabel]="'never'" placeholder="Task">
-            <mat-select>
-                <mat-option *ngFor="let project of availableProjects" [value]="project.name">
+    <mat-card *ngFor="let entry of timeSlotHolder.entries; let index = index;" class="timesheet-entry">
+        <mat-card-actions style="margin-bottom: 0px;">
+            <button mat-icon-button (click)="removeEntry(index)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-card-actions>
+        <mat-form-field style="margin-left: 0px;">
+            <mat-select placeholder="Select a Project">
+                <mat-option *ngFor="let project of availableProjects" [value]="project.name"
+                    (click)="onProjectSelected(project, index)">
                     {{project.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
-            <input matInput>
+            <mat-select placeholder="Select a Task" [disabled]="!entry.project.name">
+                <mat-option *ngFor="let task of entry.project.tasks" [value]="task.name"
+                    (click)="onTaskSelected(task, index)">
+                    {{task.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Input your time" type="number" min=0 
+                [(ngModel)]="entry.billingTime" 
+                [disabled]="!entry.task.name">
+        </mat-form-field>
+        <!-- maybe give option to hide comment -->
+        <mat-form-field>
+            <textarea matInput [(ngModel)]="entry.comment" placeholder="Optional Comments" maxlength="256"></textarea>
+            <mat-hint align="end">{{entry.comment.length}} / 256</mat-hint>
         </mat-form-field>
     </mat-card>
 </ng-template>

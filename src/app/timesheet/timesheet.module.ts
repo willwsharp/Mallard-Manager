@@ -7,6 +7,7 @@ import { DateViewComponent } from './timesheet-mobile/date-view/date-view.compon
 import { TimeSlotEditorComponent } from './timesheet-mobile/date-view/time-slot-editor/time-slot-editor.component';
 import { TimeSlotService } from './services/time-slot.service';
 import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/ma
     imports: [
         MaterialModule,
         CommonModule,
+        FormsModule,
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule

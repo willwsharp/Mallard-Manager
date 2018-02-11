@@ -10,5 +10,10 @@
 
 body {
     font-family: $mat-font-family;
-    font-weight: normal
+    font-weight: normal;
+    height: 100%;
+}
+
+.flex-space-filler {
+    flex: 1 auto;
 }
