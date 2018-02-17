@@ -3,7 +3,11 @@
         <button mat-icon-button (click)="addTimesheetEntry()">
             <mat-icon>add</mat-icon>
         </button>
-        <span class="flex-space-filler"></span>
+        <div class="flex-space-filler time-range-container">
+            <span>
+                {{timeSlotHolder.timeRange}}
+            </span>
+        </div>
         <button mat-icon-button (click)="save()" [disabled]="!canSave()">
             <mat-icon>save</mat-icon>
         </button>

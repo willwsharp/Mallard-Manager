@@ -3,6 +3,10 @@ import { CalendarDate } from '../../../core/models/CalendarDate.model';
 import { TimeSlot } from './models/TimeSlot.model';
 import { TimeSlotService } from '../../services/time-slot.service';
 
+/**
+ * Responsible for managing the TimeSlot editors
+ * @author willwsharp
+ */
 @Component({
     selector: 'mm-date-view',
     templateUrl: './date-view.component.html',
@@ -16,7 +20,7 @@ export class DateViewComponent {
 
     public timeSlots: TimeSlot[] = [];
 
-    // we need services to load timesheet preferences and actual timesheet date
+    // we need services to load timesheet preferences and actual timesheet data
     // how the timesheet is constructed is specified by the owner/admin; this means
     // we need roles (obviously), and perhaps some form of granting/removing
     // permissions to users
