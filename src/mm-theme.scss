@@ -6,7 +6,8 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// Define the palettes for your theme using the Material Design palettes 
+// available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
 // these are temporary
@@ -14,7 +15,7 @@ $mm-app-primary: mat-palette($mat-brown);
 $mm-app-accent:  mat-palette($mat-green, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$mm-app-warn:    mat-palette($mat-yellow, A200);
+$mm-app-warn:    mat-palette($mat-yellow, A700);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $mm-app-theme: mat-light-theme($mm-app-primary, $mm-app-accent, $mm-app-warn);

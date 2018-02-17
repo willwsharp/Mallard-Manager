@@ -32,16 +32,21 @@
         </mat-form-field>
         <mat-form-field>
             <mat-select placeholder="Select a Task" [disabled]="!entry.project.name">
-                <mat-option *ngFor="let task of entry.project.tasks" [value]="task.name"
+                <mat-option *ngFor="let task of entry.project.tasks" 
+                    [value]="task.name"
                     (click)="onTaskSelected(task, index)">
                     {{task.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Input your time" type="number" min=0 
+            <input matInput placeholder="Input your time" type="number" 
+                min="0"
+                required
+                [errorStateMatcher]="errorStateMatcher"
                 [(ngModel)]="entry.billingTime" 
                 [disabled]="!entry.task.name">
+            <mat-error>{{getErrorMessage(index)}}</mat-error>
         </mat-form-field>
         <!-- maybe give option to hide comment -->
         <mat-form-field>
@@ -52,5 +57,5 @@
 </ng-template>
 
 <ng-template #noEntries>
-    <div class="mat-title" style="margin: auto;">No entries found</div>
+    <div class="mat-title" style="margin: auto;">No entries</div>
 </ng-template>

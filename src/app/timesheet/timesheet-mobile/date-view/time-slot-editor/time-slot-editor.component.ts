@@ -5,8 +5,19 @@ import { Project } from '../../../../core/models/organization/projects/Project.m
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ProjectManagerService } from '../../../../core/services/project-manager.service';
 import { ProjectTask } from '../../../../core/models/organization/projects/ProjectTask.model';
-import _ = require('lodash');
+import * as _ from 'lodash';
 import { AppUtils } from '../../../../core/util/AppUtils.util';
+import { FormControl, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
+
+class NonNegativeErrorStateMatcher implements ErrorStateMatcher {
+    public isErrorState(control: FormControl | null): boolean {
+        if (AppUtils.isDefined(control)) {
+            return (control.dirty || control.touched) &&
+                (AppUtils.isNotDefined(control.value) || control.value <= -1);
+        }
+    }
+}
 
 @Component({
     selector: 'mm-time-slot-editor',
@@ -21,10 +32,12 @@ export class TimeSlotEditorComponent implements OnInit {
 
     public availableProjects: Project[] = [];
     public timeSlotHolder: TimeSlot;
+    public errorStateMatcher: NonNegativeErrorStateMatcher;
 
     constructor(private projectManager: ProjectManagerService) {}
 
     public ngOnInit() {
+        this.errorStateMatcher = new NonNegativeErrorStateMatcher();
         this.availableProjects = this.projectManager.getAvailableProjects();
 
         if (AppUtils.isDefined(this.givenTimeSlot)) {
@@ -64,5 +77,21 @@ export class TimeSlotEditorComponent implements OnInit {
         } else {
             throw new Error('No index given');
         }
+    }
+
+    public getErrorMessage(index: number): string {
+        let result: string;
+        const entry: TimesheetEntry = this.timeSlotHolder.entries[index];
+        if (AppUtils.isDefined(entry)) {
+            if (entry.billingTime <= -1) {
+                result = 'Entered time cannot be negative';
+            } else if (AppUtils.isNotDefined(entry.billingTime)) {
+                result = 'Invalid hours entered';
+            }
+        } else {
+            console.error('No Timesheet Entry found with that index');
+            return '';
+        }
+        return result;
     }
 }
