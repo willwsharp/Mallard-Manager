@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import * as moment from 'moment';
-import { DayOfWeek } from '../../core/models/DayOfWeek.enum';
-import { Month } from '../../core/models/Month.enum';
-import { CalendarDate } from '../../core/models/CalendarDate.model';
+import { DayOfWeek } from '../../core/models/date-and-time/DayOfWeek.enum';
+import { Month } from '../../core/models/date-and-time/Month.enum';
+import { CalendarDate } from '../../core/models/date-and-time/CalendarDate.model';
 import { AppUtils } from '../../core/util/AppUtils.util';
 
 

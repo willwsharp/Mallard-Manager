@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TimeSlot } from '../timesheet-mobile/date-view/models/TimeSlot.model';
+import { CalendarDate } from '../../core/models/date-and-time/CalendarDate.model';
 
 /**
  * Manages Timeslot data and preferences
@@ -8,34 +9,17 @@ import { TimeSlot } from '../timesheet-mobile/date-view/models/TimeSlot.model';
 @Injectable()
 export class TimeSlotService {
 
-    // encapsulating either timesheet or organization preferences
-    public requireComment: boolean;
-    // TODO: allow users to fill out what they did for whole day instead of filling out each individual time-slot
-    public displayPreferences: 'by-day' | 'by-half-day' | 'by-hour' | 'by-half-hour' | 'by-quarter-hour' | 'by-tenth-hour';
+    // service to load timeslot based on given date goes here
+    constructor() { }
 
-    // service to retrieve timesheet preferences would go here
-    constructor() {
-        // this will get retrieved by a service eventually
-        this.displayPreferences = 'by-hour';
-    }
-
-    public getTimeSlots(): TimeSlot[] {
-        const result: TimeSlot[] = [];
-        if (this.displayPreferences === 'by-day') {
-            result.push(new TimeSlot());
-        } else if (this.displayPreferences === 'by-half-day') {
-            result.push(new TimeSlot('Morning'));
-            result.push(new TimeSlot('Afternoon'));
-        } else if (this.displayPreferences === 'by-hour') {
-            for (let i = 0; i < 24; i++) {
-                result.push(new TimeSlot(this.calculateTimeRange(i)));
-            }
-        }
-        return result;
+    public getTimeSlot(date: CalendarDate) {
+        // TODO: use date to get proper timeslot eventually
+        return new TimeSlot();
     }
 
     /**
      * @param timeIndex given time where 0 is 12:00 am
+     * @deprecated make sure we can't resuse this for something else before removing
      */
     private calculateTimeRange(timeIndex: number) {
         // AM and PM are called the period in Unicode Standard

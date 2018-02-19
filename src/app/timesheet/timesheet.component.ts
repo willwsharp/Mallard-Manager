@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { CalendarDate } from '../core/models/CalendarDate.model';
-import { Month } from '../core/models/Month.enum';
+import { CalendarDate } from '../core/models/date-and-time/CalendarDate.model';
+import { Month } from '../core/models/date-and-time/Month.enum';
 import { MatSlideToggleChange } from '@angular/material';
 import * as _ from 'lodash';
-import { DayOfWeek } from '../core/models/DayOfWeek.enum';
+import { DayOfWeek } from '../core/models/date-and-time/DayOfWeek.enum';
 import { CalendarService } from './services/calendar.service';
 
 @Component({

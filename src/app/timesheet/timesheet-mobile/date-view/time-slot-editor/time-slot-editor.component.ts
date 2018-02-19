@@ -9,6 +9,10 @@ import * as _ from 'lodash';
 import { AppUtils } from '../../../../core/util/AppUtils.util';
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
+import { OrganizationPreferencesService } from '../../../../core/services/organization-preferences.service';
+import { OrganizationPreferences } from '../../../../core/models/organization/OrganizationPreferences.model';
+import { TimeRange } from '../../../../core/models/date-and-time/TimeRange.mode';
+import { Time } from '../../../../core/models/date-and-time/Time.model';
 
 class NonNegativeErrorStateMatcher implements ErrorStateMatcher {
     public isErrorState(control: FormControl | null): boolean {
@@ -33,16 +37,23 @@ export class TimeSlotEditorComponent implements OnInit {
     public availableProjects: Project[] = [];
     public timeSlotHolder: TimeSlot;
     public errorStateMatcher: NonNegativeErrorStateMatcher;
+    public orgPreferences: OrganizationPreferences;
+    public canLoadTemplate: boolean = false;
 
-    constructor(private projectManager: ProjectManagerService) {}
+    constructor(private projectManager: ProjectManagerService,
+                private orgPrefService: OrganizationPreferencesService) { }
 
     public ngOnInit() {
+        this.orgPreferences = this.orgPrefService.getPreferences();
+
         this.errorStateMatcher = new NonNegativeErrorStateMatcher();
         this.availableProjects = this.projectManager.getAvailableProjects();
 
         if (AppUtils.isDefined(this.givenTimeSlot)) {
             this.timeSlotHolder = _.cloneDeep(this.givenTimeSlot);
         }
+
+        this.canLoadTemplate = true;
     }
 
     public addTimesheetEntry() {
@@ -93,5 +104,13 @@ export class TimeSlotEditorComponent implements OnInit {
             return '';
         }
         return result;
+    }
+
+    public isSelectedPeriod(time: Time, period: 'AM' | 'PM') {
+        return time.period === period;
+    }
+
+    public switchTimePeriod(time: Time, period: 'AM' | 'PM') {
+        time.period = period;
     }
 }

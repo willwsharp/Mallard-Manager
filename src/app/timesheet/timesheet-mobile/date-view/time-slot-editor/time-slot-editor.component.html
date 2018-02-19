@@ -1,13 +1,9 @@
-<div id="time-slot-container">
+<div id="time-slot-container" *ngIf="canLoadTemplate">
     <div id="time-slot-action-bar">
         <button mat-icon-button (click)="addTimesheetEntry()">
             <mat-icon>add</mat-icon>
         </button>
-        <div class="flex-space-filler time-range-container">
-            <span>
-                {{timeSlotHolder.timeRange}}
-            </span>
-        </div>
+        <span class="flex-space-filler"></span>
         <button mat-icon-button (click)="save()" [disabled]="!canSave()">
             <mat-icon>save</mat-icon>
         </button>
@@ -43,18 +39,13 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        <!-- There is some complicated magic happening here... -->
+        <ng-container *ngTemplateOutlet="orgPreferences.billingPrecisionRequired ? withBillingPrecision : withoutBillingPrecision; 
+                                         context:{'entry': entry, 'index': index}">
+        </ng-container>
+        <!-- TODO: maybe give option to hide comment -->
         <mat-form-field>
-            <input matInput placeholder="Input your time" type="number" 
-                min="0"
-                required
-                [errorStateMatcher]="errorStateMatcher"
-                [(ngModel)]="entry.billingTime" 
-                [disabled]="!entry.task.name">
-            <mat-error>{{getErrorMessage(index)}}</mat-error>
-        </mat-form-field>
-        <!-- maybe give option to hide comment -->
-        <mat-form-field>
-            <textarea matInput [(ngModel)]="entry.comment" placeholder="Optional Comments" maxlength="256"></textarea>
+            <textarea matInput [(ngModel)]="entry.comment" placeholder="Optional Comments" maxlength="256" [required]="orgPreferences.commentRequired"></textarea>
             <mat-hint align="end">{{entry.comment.length}} / 256</mat-hint>
         </mat-form-field>
     </mat-card>
@@ -62,4 +53,52 @@
 
 <ng-template #noEntries>
     <div class="mat-title" style="margin: auto;">No entries</div>
+</ng-template>
+
+<ng-template #withBillingPrecision let-entry="entry" let-index="index">
+    <div class="billing-precision-container">
+        <mat-form-field class="starting-range">
+            <input matInput placeholder="Starting time">
+        </mat-form-field>
+        <div class="period-designator-container starting-period">
+            <div mat-ripple 
+                [matRippleDisabled]="isSelectedPeriod(entry.timeRange[0], 'AM')"
+                class="period-designator-btn" (click)="switchTimePeriod(entry.timeRange[0], 'AM')">
+                <span class="period-designator" [ngClass]="{'selected-period': isSelectedPeriod(entry.timeRange[0], 'AM')}">AM</span>
+            </div>
+            <div mat-ripple
+                [matRippleDisabled]="isSelectedPeriod(entry.timeRange[0], 'PM')"
+                class="period-designator-btn" (click)="switchTimePeriod(entry.timeRange[0], 'PM')">
+                <span class="period-designator" [ngClass]="{'selected-period': isSelectedPeriod(entry.timeRange[0], 'PM')}">PM</span>
+            </div>
+        </div>
+        <span>to</span>
+        <mat-form-field class="ending-range">
+            <input matInput placeholder="Ending time">
+        </mat-form-field>
+        <div class="period-designator-container ending-period">
+            <div mat-ripple 
+                [matRippleDisabled]="isSelectedPeriod(entry.timeRange[1], 'AM')"
+                class="period-designator-btn" (click)="switchTimePeriod(entry.timeRange[1], 'AM')">
+                <span class="period-designator" [ngClass]="{'selected-period': isSelectedPeriod(entry.timeRange[1], 'AM')}">AM</span>
+            </div>
+            <div mat-ripple
+                [matRippleDisabled]="isSelectedPeriod(entry.timeRange[1], 'PM')"
+                class="period-designator-btn" (click)="switchTimePeriod(entry.timeRange[1], 'PM')">
+                <span class="period-designator" [ngClass]="{'selected-period': isSelectedPeriod(entry.timeRange[1], 'PM')}">PM</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #withoutBillingPrecision let-entry="entry" let-index="index">
+    <mat-form-field>
+        <input matInput placeholder="Input your time" type="number" 
+            min="0"
+            required
+            [errorStateMatcher]="errorStateMatcher"
+            [(ngModel)]="entry.billingTime" 
+            [disabled]="!entry.task.name">
+        <mat-error>{{getErrorMessage(index)}}</mat-error>
+    </mat-form-field>
 </ng-template>
