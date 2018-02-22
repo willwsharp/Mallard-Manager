@@ -39,12 +39,17 @@ export class TimeSlotEditorComponent implements OnInit {
     public errorStateMatcher: NonNegativeErrorStateMatcher;
     public orgPreferences: OrganizationPreferences;
     public canLoadTemplate: boolean = false;
+    public readonly hoursInDay: ReadonlyArray<number> = _.map(new Array(12), (elem: number, index: number) => {
+        return index + 1;
+    });
+    public allowedMinuteIntervals: number[] = [];
 
     constructor(private projectManager: ProjectManagerService,
                 private orgPrefService: OrganizationPreferencesService) { }
 
     public ngOnInit() {
         this.orgPreferences = this.orgPrefService.getPreferences();
+        this.allowedMinuteIntervals = this.orgPrefService.calculateMinuteIntervals();
 
         this.errorStateMatcher = new NonNegativeErrorStateMatcher();
         this.availableProjects = this.projectManager.getAvailableProjects();

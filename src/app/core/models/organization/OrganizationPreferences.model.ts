@@ -2,7 +2,7 @@ import { BillingTimePrecision } from '../date-and-time/BillingTimePrecision.enum
 
 export class OrganizationPreferences {
     private _billingPrecisionRequired: boolean = true;
-    private _billingPrecision: BillingTimePrecision = BillingTimePrecision.Day;
+    private _billingPrecision: BillingTimePrecision = BillingTimePrecision.TenthHour;
     private _commentRequired: boolean = false;
 
     public get billingPrecisionRequired(): boolean {

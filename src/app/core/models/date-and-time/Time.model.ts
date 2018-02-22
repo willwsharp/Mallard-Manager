@@ -12,7 +12,7 @@ export class Time {
     }
 
     public set hour(v: number) {
-        this.hour = v % 12;
+        this._hour = v % 12;
     }
 
     public get minute() {

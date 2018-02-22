@@ -41,7 +41,7 @@
         </mat-form-field>
         <!-- There is some complicated magic happening here... -->
         <ng-container *ngTemplateOutlet="orgPreferences.billingPrecisionRequired ? withBillingPrecision : withoutBillingPrecision; 
-                                         context:{'entry': entry, 'index': index}">
+            context:{'entry': entry, 'index': index}">
         </ng-container>
         <!-- TODO: maybe give option to hide comment -->
         <mat-form-field>
@@ -57,8 +57,21 @@
 
 <ng-template #withBillingPrecision let-entry="entry" let-index="index">
     <div class="billing-precision-container">
+        <mat-form-field class="starting-hour">
+            <mat-select [(ngModel)]="entry.timeRange[0].hour" [disabled]="!entry.task.name">
+                <mat-option *ngFor="let hour of hoursInDay; let index = index;" [value]="hour">
+                    {{ hour }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span style="margin: 0px; flex: .2;">:</span>
         <mat-form-field class="starting-range">
-            <input matInput placeholder="Starting time">
+            <mat-select [(ngModel)]="entry.timeRange[0].minute" [disabled]="!entry.task.name">
+                <mat-option *ngFor="let minute of allowedMinuteIntervals; let index = index;"
+                    [value]="minute">
+                    {{ minute }}{{ minute === 0 ? 0 : '' }}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
         <div class="period-designator-container starting-period">
             <div mat-ripple 
@@ -73,8 +86,21 @@
             </div>
         </div>
         <span>to</span>
+        <mat-form-field class="ending-hour">
+            <mat-select [(ngModel)]="entry.timeRange[1].hour"  [disabled]="!entry.task.name">
+                <mat-option *ngFor="let hour of hoursInDay; let index = index;" [value]="hour">
+                    {{ hour }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span style="margin: 0px; flex: .2;">:</span>
         <mat-form-field class="ending-range">
-            <input matInput placeholder="Ending time">
+            <mat-select [(ngModel)]="entry.timeRange[1].minute"  [disabled]="!entry.task.name">
+                <mat-option *ngFor="let minute of allowedMinuteIntervals; let index = index;"
+                    [value]="minute">
+                    {{ minute }}{{ minute === 0 ? 0 : '' }}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
         <div class="period-designator-container ending-period">
             <div mat-ripple 
