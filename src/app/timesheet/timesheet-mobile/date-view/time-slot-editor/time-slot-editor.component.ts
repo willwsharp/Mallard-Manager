@@ -40,7 +40,11 @@ export class TimeSlotEditorComponent implements OnInit {
     public orgPreferences: OrganizationPreferences;
     public canLoadTemplate: boolean = false;
     public readonly hoursInDay: ReadonlyArray<number> = _.map(new Array(12), (elem: number, index: number) => {
-        return index + 1;
+        if (index === 0) {
+            return 12;
+        } else {
+            return index;
+        }
     });
     public allowedMinuteIntervals: number[] = [];
 
@@ -117,5 +121,9 @@ export class TimeSlotEditorComponent implements OnInit {
 
     public switchTimePeriod(time: Time, period: 'AM' | 'PM') {
         time.period = period;
+    }
+
+    public getTotalWorkedHours(): number {
+        return this.givenTimeSlot.calculateWorkedHours();
     }
 }

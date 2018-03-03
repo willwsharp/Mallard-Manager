@@ -3,7 +3,9 @@
         <button mat-icon-button (click)="addTimesheetEntry()">
             <mat-icon>add</mat-icon>
         </button>
-        <span class="flex-space-filler"></span>
+        <div id="total-hours-container">
+            <span *ngIf="getTotalWorkedHours() > 0">Total Hours: {{getTotalWorkedHours()}}</span>
+        </div>
         <button mat-icon-button (click)="save()" [disabled]="!canSave()">
             <mat-icon>save</mat-icon>
         </button>
@@ -113,6 +115,19 @@
                 class="period-designator-btn" (click)="switchTimePeriod(entry.timeRange[1], 'PM')">
                 <span class="period-designator" [ngClass]="{'selected-period': isSelectedPeriod(entry.timeRange[1], 'PM')}">PM</span>
             </div>
+        </div>
+    </div>
+    <div class="time-input-feedback-container">
+        <div class="time-across-multiple-days" *ngIf="!entry.containedInDay()">
+            <mat-icon>error_outline</mat-icon>
+            <span class="feedback-text">Input time can't span across multiple days</span>
+        </div>
+        <div class="hours-input-calculator" *ngIf="entry.containedInDay()">
+            <mat-icon>timer</mat-icon>
+            <span class="feedback-text" style="top: 2px;">
+                = {{entry.getWorkedHours()}} 
+                hour{{entry.getWorkedHours() > 1 ? 's' : ''}}
+            </span>
         </div>
     </div>
 </ng-template>

@@ -34,7 +34,8 @@
 }
 
 .billing-precision-container mat-form-field {
-    width: 38px;
+    font-size: 20px;
+    width: 42px;
 }
 
 .billing-precision-container > span {
@@ -49,8 +50,8 @@
 .period-designator-container {
     margin-left: 5px;
     position: relative;
-    top: -6px;
-    font-size: 14px;
+    top: 1px;
+    font-size: 13px;
     user-select: none;
     width: 22px;
 }
@@ -65,4 +66,32 @@
 
 .selected-period {
     font-weight: bold;
+}
+
+#total-hours-container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-input-feedback-container {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.time-across-multiple-days {
+    display: flex;
+    align-items: center;
+}
+
+.hours-input-calculator {
+    display: flex;
+    align-items: center;
+}
+
+.feedback-text {
+    margin-left: 5px;
+    position: relative;
 }
