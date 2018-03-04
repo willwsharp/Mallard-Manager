@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+// Import theming functions
+@import '~@angular/material/theming';
+
+@import './mm-theme.scss';
+/* temp location/color; move somewhere else eventually */
+.mat-grid-tile {
+    border: 1px solid mat-color($mm-app-primary) ;
+}
+
+body {
+    font-family: $mat-font-family;
+    font-weight: normal;
+    height: 100%;
+}
+
+.flex-space-filler {
+    flex: 1 auto;
+}

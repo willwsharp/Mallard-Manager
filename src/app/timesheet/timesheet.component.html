@@ -1,33 +1,30 @@
-<mat-grid-list cols="7" rowHeight="75px">
-    <mat-grid-tile>1</mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
-    <mat-grid-tile>3</mat-grid-tile>
-    <mat-grid-tile>4</mat-grid-tile>
-    <mat-grid-tile>5</mat-grid-tile>
-    <mat-grid-tile>6</mat-grid-tile>
-    <mat-grid-tile>7</mat-grid-tile>
-    <mat-grid-tile>8</mat-grid-tile>
-    <mat-grid-tile>9</mat-grid-tile>
-    <mat-grid-tile>10</mat-grid-tile>
-    <mat-grid-tile>11</mat-grid-tile>
-    <mat-grid-tile>12</mat-grid-tile>
-    <mat-grid-tile>13</mat-grid-tile>
-    <mat-grid-tile>14</mat-grid-tile>
-    <mat-grid-tile>15</mat-grid-tile>
-    <mat-grid-tile>16</mat-grid-tile>
-    <mat-grid-tile>17</mat-grid-tile>
-    <mat-grid-tile>18</mat-grid-tile>
-    <mat-grid-tile>19</mat-grid-tile>
-    <mat-grid-tile>20</mat-grid-tile>
-    <mat-grid-tile>21</mat-grid-tile>
-    <mat-grid-tile>22</mat-grid-tile>
-    <mat-grid-tile>23</mat-grid-tile>
-    <mat-grid-tile>24</mat-grid-tile>
-    <mat-grid-tile>25</mat-grid-tile>
-    <mat-grid-tile>26</mat-grid-tile>
-    <mat-grid-tile>27</mat-grid-tile>
-    <mat-grid-tile>28</mat-grid-tile>
-    <mat-grid-tile>29</mat-grid-tile>
-    <mat-grid-tile>30</mat-grid-tile>
-    <mat-grid-tile>31</mat-grid-tile>
-</mat-grid-list>
+<ng-container *ngIf="dateSelected; then dateView else calendarView"></ng-container>
+<ng-template #calendarView>
+    <div id="timesheet-container">
+        <h1 style="text-align: center;" class="mat-display-2">{{months[givenMonth]}}</h1>
+        <mat-slide-toggle [checked]="displayWeekends" (change)="onDisplayWeekendsToggled($event)">Display weekends</mat-slide-toggle>
+        <mat-grid-list [cols]="givenColumns">
+            <ng-container *ngFor="let weekday of daysOfWeek">
+                <mat-grid-tile [style.background]="'white'" *ngIf="displayingWeekendTiles(weekday)">{{weekday}}</mat-grid-tile>
+            </ng-container>
+        </mat-grid-list>
+        <mat-grid-list [cols]="givenColumns" rowHeight="1:1">
+            <ng-container *ngFor="let date of dates">
+                <mat-grid-tile *ngIf="displayWeekends || !date.isWeekend" 
+                [ngClass]="{'not-in-month': notInCurrentMonth(date)}"
+                (click)="viewTimesheetDateView(date)">
+                    {{date.date}}
+                </mat-grid-tile>
+            </ng-container>
+        </mat-grid-list>
+    </div>
+</ng-template>
+<ng-template #dateView>
+    <div>
+        <button (click)="returnToCalendarView()" mat-button title="Go back">
+            <mat-icon>arrow_back</mat-icon>
+            <span>BACK</span>
+        </button>
+        <mm-time-slot-editor [givenDate]="dateSelected"></mm-time-slot-editor>
+    </div>
+</ng-template>

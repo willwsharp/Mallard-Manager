@@ -1,0 +1,103 @@
+#time-slot-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#date-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#time-slot-action-bar {
+    display: flex;
+    flex-direction: row;
+}
+
+#time-slot-content {
+    display: flex;
+    flex-direction: column;
+    /* TODO: make sure this height is dynamic later */
+    min-height: 400px;
+    max-height: 400px;
+    border: 1px solid black;
+    overflow: auto;
+    background: gainsboro;
+}
+
+.timesheet-entry {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    margin: 5px;
+}
+
+.billing-precision-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.billing-precision-container mat-form-field {
+    font-size: 20px;
+    width: 42px;
+}
+
+.billing-precision-container > span {
+    margin: 0 15px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.period-designator-container {
+    margin-left: 5px;
+    position: relative;
+    top: 1px;
+    font-size: 13px;
+    user-select: none;
+    width: 22px;
+}
+
+.period-designator-btn {
+    display: flex;
+    height: 20px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.selected-period {
+    font-weight: bold;
+}
+
+#total-hours-container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-input-feedback-container {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.time-across-multiple-days {
+    display: flex;
+    align-items: center;
+}
+
+.hours-input-calculator {
+    display: flex;
+    align-items: center;
+}
+
+.feedback-text {
+    margin-left: 5px;
+    position: relative;
+}

@@ -1,0 +1,149 @@
+<div id="time-slot-container" *ngIf="canLoadTemplate">
+    <div id="date-header">
+        <span class="mat-headline" style="margin-bottom: 0px;">{{givenDate}}</span>
+    </div>
+    <div id="time-slot-action-bar">
+        <button mat-icon-button (click)="addTimesheetEntry()">
+            <mat-icon>add</mat-icon>
+        </button>
+        <div id="total-hours-container">
+            <span *ngIf="getTotalWorkedHours() > 0">Total Hours: {{getTotalWorkedHours()}}</span>
+        </div>
+        <button mat-icon-button (click)="save()" [disabled]="!canSave()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </div>
+
+    <div id="time-slot-content">
+        <ng-container *ngIf="timeSlotHolder.entries.length > 0; then timesheetEntryView else noEntries"></ng-container>
+    </div>
+</div>
+
+<!-- this could probably be broken out into its own sub-component -->
+<ng-template #timesheetEntryView>
+    <!-- display specific template if there aren't any entries yet -->
+    <mat-card *ngFor="let entry of timeSlotHolder.entries; let index = index;" class="timesheet-entry">
+        <mat-card-actions style="margin-bottom: 0px;">
+            <button mat-icon-button (click)="removeEntry(index)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-card-actions>
+        <mat-form-field style="margin-left: 0px;">
+            <mat-select placeholder="Select a Project">
+                <mat-option *ngFor="let project of availableProjects" [value]="project.name"
+                    (click)="onProjectSelected(project, index)">
+                    {{project.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Select a Task" [disabled]="!entry.project.name">
+                <mat-option *ngFor="let task of entry.project.tasks" 
+                    [value]="task.name"
+                    (click)="onTaskSelected(task, index)">
+                    {{task.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!-- There is some complicated magic happening here... -->
+        <ng-container *ngTemplateOutlet="orgPreferences.billingPrecisionRequired ? withBillingPrecision : withoutBillingPrecision; 
+            context:{'entry': entry, 'index': index}">
+        </ng-container>
+        <!-- TODO: maybe give option to hide comment -->
+        <mat-form-field>
+            <textarea matInput [(ngModel)]="entry.comment" placeholder="Optional Comments" maxlength="256" [required]="orgPreferences.commentRequired"></textarea>
+            <mat-hint align="end">{{entry.comment.length}} / 256</mat-hint>
+        </mat-form-field>
+    </mat-card>
+</ng-template>
+
+<ng-template #noEntries>
+    <div class="mat-title" style="margin: auto;">No entries</div>
+</ng-template>
+
+<ng-template #withBillingPrecision let-entry="entry" let-index="index">
+    <div class="billing-precision-container">
+        <mat-form-field class="starting-hour">
+            <mat-select [(ngModel)]="entry.timeRange[0].hour" [disabled]="!entry.task.name">
+                <mat-option *ngFor="let hour of hoursInDay; let index = index;" [value]="hour">
+                    {{ hour }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span style="margin: 0px; flex: .2;">:</span>
+        <mat-form-field class="starting-range">
+            <mat-select [(ngModel)]="entry.timeRange[0].minute" [disabled]="!entry.task.name">
+                <mat-option *ngFor="let minute of allowedMinuteIntervals; let index = index;"
+                    [value]="minute">
+                    {{ minute }}{{ minute === 0 ? 0 : '' }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="period-designator-container starting-period">
+            <div mat-ripple 
+                [matRippleDisabled]="isSelectedPeriod(entry.timeRange[0], 'AM')"
+                class="period-designator-btn" (click)="switchTimePeriod(entry.timeRange[0], 'AM')">
+                <span class="period-designator" [ngClass]="{'selected-period': isSelectedPeriod(entry.timeRange[0], 'AM')}">AM</span>
+            </div>
+            <div mat-ripple
+                [matRippleDisabled]="isSelectedPeriod(entry.timeRange[0], 'PM')"
+                class="period-designator-btn" (click)="switchTimePeriod(entry.timeRange[0], 'PM')">
+                <span class="period-designator" [ngClass]="{'selected-period': isSelectedPeriod(entry.timeRange[0], 'PM')}">PM</span>
+            </div>
+        </div>
+        <span>to</span>
+        <mat-form-field class="ending-hour">
+            <mat-select [(ngModel)]="entry.timeRange[1].hour"  [disabled]="!entry.task.name">
+                <mat-option *ngFor="let hour of hoursInDay; let index = index;" [value]="hour">
+                    {{ hour }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span style="margin: 0px; flex: .2;">:</span>
+        <mat-form-field class="ending-range">
+            <mat-select [(ngModel)]="entry.timeRange[1].minute"  [disabled]="!entry.task.name">
+                <mat-option *ngFor="let minute of allowedMinuteIntervals; let index = index;"
+                    [value]="minute">
+                    {{ minute }}{{ minute === 0 ? 0 : '' }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="period-designator-container ending-period">
+            <div mat-ripple 
+                [matRippleDisabled]="isSelectedPeriod(entry.timeRange[1], 'AM')"
+                class="period-designator-btn" (click)="switchTimePeriod(entry.timeRange[1], 'AM')">
+                <span class="period-designator" [ngClass]="{'selected-period': isSelectedPeriod(entry.timeRange[1], 'AM')}">AM</span>
+            </div>
+            <div mat-ripple
+                [matRippleDisabled]="isSelectedPeriod(entry.timeRange[1], 'PM')"
+                class="period-designator-btn" (click)="switchTimePeriod(entry.timeRange[1], 'PM')">
+                <span class="period-designator" [ngClass]="{'selected-period': isSelectedPeriod(entry.timeRange[1], 'PM')}">PM</span>
+            </div>
+        </div>
+    </div>
+    <div class="time-input-feedback-container" *ngIf="orgPreferences.billingPrecisionRequired">
+        <div class="time-across-multiple-days" *ngIf="!entry.containedInDay()">
+            <mat-icon>error_outline</mat-icon>
+            <span class="feedback-text">Input time can't span across multiple days</span>
+        </div>
+        <div class="hours-input-calculator" *ngIf="entry.containedInDay()">
+            <mat-icon>timer</mat-icon>
+            <span class="feedback-text" style="top: 2px;">
+                = {{entry.getWorkedHours()}} 
+                hour{{entry.getWorkedHours() > 1 ? 's' : ''}}
+            </span>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #withoutBillingPrecision let-entry="entry" let-index="index">
+    <mat-form-field>
+        <input matInput placeholder="Input your time" type="number" 
+            min="0"
+            required
+            [errorStateMatcher]="errorStateMatcher"
+            [(ngModel)]="entry.billingTime" 
+            [disabled]="!entry.task.name">
+        <mat-error>{{getErrorMessage(index)}}</mat-error>
+    </mat-form-field>
+</ng-template>

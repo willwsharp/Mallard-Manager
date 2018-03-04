@@ -61,7 +61,7 @@
     "no-empty-interface": true,
     "no-eval": true,
     "no-inferrable-types": [
-      true,
+      false,
       "ignore-params"
     ],
     "no-misused-new": true,
@@ -121,13 +121,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "mm",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "mm",
       "kebab-case"
     ],
     "no-output-on-prefix": true,
