@@ -1,0 +1,7 @@
+
+.timesheet-overview-panel {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}

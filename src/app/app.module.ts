@@ -7,6 +7,8 @@ import { TimesheetModule } from './timesheet/timesheet.module';
 import { CoreModule } from './core/core.module';
 import { ProjectManagerService } from './core/services/project-manager.service';
 import { OrganizationPreferencesService } from './core/services/organization-preferences.service';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { TimesheetService } from './core/services/timesheet.service';
 
 
 @NgModule({
@@ -16,11 +18,14 @@ import { OrganizationPreferencesService } from './core/services/organization-pre
   imports: [
     BrowserModule,
     TimesheetModule,
+    DashboardModule,
     CoreModule,
     BrowserAnimationsModule
   ],
-  providers: [ProjectManagerService,
-              OrganizationPreferencesService],
+  providers: [
+    TimesheetService,
+    ProjectManagerService,
+    OrganizationPreferencesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
