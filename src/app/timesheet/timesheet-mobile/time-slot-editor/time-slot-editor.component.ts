@@ -1,19 +1,21 @@
 import { Component, Input } from '@angular/core';
 import { TimeSlot } from '../models/TimeSlot.model';
 import { TimesheetEntry } from '../models/TimesheetEntry.model';
-import { Project } from '../../../../core/models/organization/projects/Project.model';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { ProjectManagerService } from '../../../../core/services/project-manager.service';
-import { ProjectTask } from '../../../../core/models/organization/projects/ProjectTask.model';
 import * as _ from 'lodash';
-import { AppUtils } from '../../../../core/util/AppUtils.util';
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
-import { OrganizationPreferencesService } from '../../../../core/services/organization-preferences.service';
-import { OrganizationPreferences } from '../../../../core/models/organization/OrganizationPreferences.model';
-import { TimeRange } from '../../../../core/models/date-and-time/TimeRange.mode';
-import { Time } from '../../../../core/models/date-and-time/Time.model';
+import { AppUtils } from '../../../core/util/AppUtils.util';
+import { CalendarDate } from '../../../core/models/date-and-time/CalendarDate.model';
+import { Project } from '../../../core/models/organization/projects/Project.model';
+import { OrganizationPreferences } from '../../../core/models/organization/OrganizationPreferences.model';
+import { OrganizationPreferencesService } from '../../../core/services/organization-preferences.service';
+import { ProjectManagerService } from '../../../core/services/project-manager.service';
+import { TimeSlotService } from '../../services/time-slot.service';
+import { ProjectTask } from '../../../core/models/organization/projects/ProjectTask.model';
+import { Time } from '../../../core/models/date-and-time/Time.model';
 
+// custom error matcher for the billing time input
 class NonNegativeErrorStateMatcher implements ErrorStateMatcher {
     public isErrorState(control: FormControl | null): boolean {
         if (AppUtils.isDefined(control)) {
@@ -30,10 +32,16 @@ class NonNegativeErrorStateMatcher implements ErrorStateMatcher {
         './time-slot-editor.component.css'
     ]
 })
+/**
+ * Component responsible for managing the TimesheetEntries for a TimeSlot.
+ * TODO: add animations when entries are removed/added
+ * @author willwsharp
+ */
 export class TimeSlotEditorComponent implements OnInit {
 
-    @Input() public givenTimeSlot: TimeSlot;
+    @Input() public givenDate: CalendarDate;
 
+    public givenTimeSlot: TimeSlot;
     public availableProjects: Project[] = [];
     public timeSlotHolder: TimeSlot;
     public errorStateMatcher: NonNegativeErrorStateMatcher;
@@ -48,10 +56,13 @@ export class TimeSlotEditorComponent implements OnInit {
     });
     public allowedMinuteIntervals: number[] = [];
 
-    constructor(private projectManager: ProjectManagerService,
+    constructor(private timeslotService: TimeSlotService,
+                private projectManager: ProjectManagerService,
                 private orgPrefService: OrganizationPreferencesService) { }
 
     public ngOnInit() {
+        this.givenTimeSlot = this.timeslotService.getTimeSlot(this.givenDate);
+
         this.orgPreferences = this.orgPrefService.getPreferences();
         this.allowedMinuteIntervals = this.orgPrefService.calculateMinuteIntervals();
 

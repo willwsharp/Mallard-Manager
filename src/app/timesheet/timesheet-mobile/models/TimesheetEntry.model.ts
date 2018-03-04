@@ -1,11 +1,12 @@
-import { Project } from '../../../../core/models/organization/projects/Project.model';
-import { ProjectTask } from '../../../../core/models/organization/projects/ProjectTask.model';
-import { AppUtils } from '../../../../core/util/AppUtils.util';
-import { Validatable } from '../../../../core/models/validation/Validatable.interface';
-import { TimeRange } from '../../../../core/models/date-and-time/TimeRange.mode';
-import { Time } from '../../../../core/models/date-and-time/Time.model';
+
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { Validatable } from '../../../core/models/validation/Validatable.interface';
+import { TimeRange } from '../../../core/models/date-and-time/TimeRange.mode';
+import { Time } from '../../../core/models/date-and-time/Time.model';
+import { Project } from '../../../core/models/organization/projects/Project.model';
+import { ProjectTask } from '../../../core/models/organization/projects/ProjectTask.model';
+import { AppUtils } from '../../../core/util/AppUtils.util';
 
 /**
  * Corresponds to the actual entry in the timesheet.
@@ -13,7 +14,7 @@ import * as _ from 'lodash';
  */
 export class TimesheetEntry implements Validatable {
 
-    public readonly timeRange: TimeRange = [
+    public timeRange: TimeRange = [
         new Time(9, 0, 'AM'),
         new Time(5, 0, 'PM')
     ];
@@ -34,6 +35,9 @@ export class TimesheetEntry implements Validatable {
         }
     }
 
+    /**
+     * Calculates the amount of hours worked from the given input time range
+     */
     public getWorkedHours(): number {
         if (AppUtils.isDefined(this.billingTime)) {
             return this.billingTime;

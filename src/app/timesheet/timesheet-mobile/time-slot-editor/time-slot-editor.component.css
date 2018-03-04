@@ -3,6 +3,12 @@
     flex-direction: column;
 }
 
+#date-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #time-slot-action-bar {
     display: flex;
     flex-direction: row;

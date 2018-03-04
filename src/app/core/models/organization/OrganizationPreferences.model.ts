@@ -1,5 +1,9 @@
 import { BillingTimePrecision } from '../date-and-time/BillingTimePrecision.enum';
 
+/**
+ * Data associated with a given organization's preferences.
+ * @author willwsharp
+ */
 export class OrganizationPreferences {
     private _billingPrecisionRequired: boolean = true;
     private _billingPrecision: BillingTimePrecision = BillingTimePrecision.TenthHour;
@@ -16,5 +20,4 @@ export class OrganizationPreferences {
     public get commentRequired(): boolean {
         return this._commentRequired;
     }
-
 }

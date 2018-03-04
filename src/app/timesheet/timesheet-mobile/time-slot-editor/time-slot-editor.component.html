@@ -1,4 +1,7 @@
 <div id="time-slot-container" *ngIf="canLoadTemplate">
+    <div id="date-header">
+        <span class="mat-headline" style="margin-bottom: 0px;">{{givenDate}}</span>
+    </div>
     <div id="time-slot-action-bar">
         <button mat-icon-button (click)="addTimesheetEntry()">
             <mat-icon>add</mat-icon>
@@ -16,6 +19,7 @@
     </div>
 </div>
 
+<!-- this could probably be broken out into its own sub-component -->
 <ng-template #timesheetEntryView>
     <!-- display specific template if there aren't any entries yet -->
     <mat-card *ngFor="let entry of timeSlotHolder.entries; let index = index;" class="timesheet-entry">
@@ -117,7 +121,7 @@
             </div>
         </div>
     </div>
-    <div class="time-input-feedback-container">
+    <div class="time-input-feedback-container" *ngIf="orgPreferences.billingPrecisionRequired">
         <div class="time-across-multiple-days" *ngIf="!entry.containedInDay()">
             <mat-icon>error_outline</mat-icon>
             <span class="feedback-text">Input time can't span across multiple days</span>
