@@ -3,6 +3,7 @@ import { DashboardComponent } from './dashboard.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatIconModule } from '@angular/material';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import { MatButtonModule, MatIconModule } from '@angular/material';
         CommonModule,
         FormsModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+        DashboardRoutingModule
     ],
     exports: [
         DashboardComponent

@@ -3,48 +3,29 @@
         <span class="mat-headline">Dashboard</span>
     </div>
     <div id="dashboard-body">
-        <div id="timesheet-list">
-            <div id="active-timesheets" *ngFor="let timesheet of timesheets; let index = index;">
-                <span class="mat-title" *ngIf="index === 0">Active Timesheets</span>
-                <div class="timesheet-overview-panel mat-elevation-z3" *ngIf="timesheet.state === timesheetStates.Active">
-                    <span>
-                        {{timesheet.dateRange[0].getShortenedDate()}} - {{timesheet.dateRange[1].getShortenedDate()}}
-                    </span>
-                    <span class="flex-space-filler"></span>
-                    <div class="timesheet-panel-actions">
-                        <button mat-icon-button (click)="editTimesheet(timesheet)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
+        <div id="active-timesheets-container">
+            <span class="mat-title">Active Timesheets</span>
+            <div id="timesheet-list">
+                <ng-container *ngFor="let timesheet of timesheets; let index = index;">
+                    <div class="timesheet-overview-panel" *ngIf="timesheet.state === timesheetStates.Active">
+                        <mat-icon>date_range</mat-icon>
+                        <span style="margin-left: 5px;">
+                            {{timesheet.dateRange[0].getShortenedDate()}} - {{timesheet.dateRange[1].getShortenedDate()}}
+                        </span>
+                        <span class="flex-space-filler"></span>
+                        <span class="total-time-indicator">
+                            <mat-icon>timer</mat-icon>
+                            <!-- this will be dynamic -->
+                            <span style="margin-left: 3px;">35 hours</span>
+                        </span>
+                        <span class="flex-space-filler"></span>
+                        <div class="timesheet-panel-actions">
+                            <button mat-icon-button (click)="editTimesheet(timesheet)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div id="submitted-timesheets" *ngFor="let timesheet of timesheets; let index = index;">
-                <span class="mat-title" *ngIf="index === 0">Submitted Timesheets</span>
-                <div class="timesheet-overview-panel mat-elevation-z3" *ngIf="timesheet.state === timesheetStates.WaitingForApproval">
-                    <span>
-                        {{timesheet.dateRange[0].getShortenedDate()}} - {{timesheet.dateRange[1].getShortenedDate()}}
-                    </span>
-                    <span class="flex-space-filler"></span>
-                    <div class="timesheet-panel-actions">
-                        <button mat-icon-button (click)="viewTimesheet()">
-                            <mat-icon>pageview</mat-icon>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div id="closed-timesheets" *ngFor="let timesheet of timesheets; let index = index;">
-                <span class="mat-title" *ngIf="index === 0">Closed Timesheets</span>
-                <div class="timesheet-overview-panel mat-elevation-z3" *ngIf="timesheet.state === timesheetStates.Closed">
-                    <span>
-                        {{timesheet.dateRange[0].getShortenedDate()}} - {{timesheet.dateRange[1].getShortenedDate()}}
-                    </span>
-                    <span class="flex-space-filler"></span>
-                    <div class="timesheet-panel-actions" (click)="viewTimesheet()">
-                        <button mat-icon-button>
-                            <mat-icon>pageview</mat-icon>
-                        </button>
-                    </div>
-                </div>
+                </ng-container>
             </div>
         </div>
     </div>

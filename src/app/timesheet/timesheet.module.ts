@@ -7,6 +7,7 @@ import { TimeSlotService } from './services/time-slot.service';
 import { MatFormFieldModule, MatInputModule, MatSelectModule, MatRippleModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { TimeSlotEditorComponent } from './timesheet-mobile/time-slot-editor/time-slot-editor.component';
+import { TimesheetRoutingModule } from './timesheet-routing.module';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import { TimeSlotEditorComponent } from './timesheet-mobile/time-slot-editor/tim
         TimeSlotEditorComponent
     ],
     imports: [
+        TimesheetRoutingModule,
         MaterialModule,
         CommonModule,
         FormsModule,

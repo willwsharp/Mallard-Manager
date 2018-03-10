@@ -5,6 +5,9 @@ import { MatSlideToggleChange } from '@angular/material';
 import * as _ from 'lodash';
 import { DayOfWeek } from '../core/models/date-and-time/DayOfWeek.enum';
 import { CalendarService } from './services/calendar.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TimesheetService } from '../core/services/timesheet.service';
+import { Timesheet } from '../core/models/timesheet/Timesheet.model';
 
 @Component({
     selector: 'mm-timesheet',
@@ -19,9 +22,8 @@ export class TimesheetComponent {
      * TODO: give ability for users to set-up weekly timesheets
      * instead of only monthly timesheets
      */
-    @Input() givenMonth: Month = 2;
-    @Input() givenYear: number;
-
+    public timesheetMonth: Month;
+    public timesheetYear: number;
     public displayWeekends = false;
     public dates: CalendarDate[] = [];
     public givenColumns: 5 | 7 = 5;
@@ -29,13 +31,21 @@ export class TimesheetComponent {
     public dayOfWeek: typeof DayOfWeek = DayOfWeek;
     public daysOfWeek: string[] = _.filter(_.keys(DayOfWeek), (key: any) => !isNaN(Number(DayOfWeek[key])));
     public months: typeof Month = Month;
+    public timesheet: Timesheet;
 
     public dateSelected: CalendarDate = null;
 
     private datesWithoutWeekends: CalendarDate[] = [];
 
-    constructor(private calendarService: CalendarService) {
-        this.dates = this.calendarService.getCalendar(this.givenMonth, this.givenYear);
+    constructor(private calendarService: CalendarService,
+                private _route: ActivatedRoute,
+                private _router: Router,
+                private _timesheetService: TimesheetService) {
+        this.timesheet = this._timesheetService.getTimesheet(this._route.snapshot.paramMap.get('id'));
+        this.timesheetMonth = this.timesheet.dateRange['0'].month;
+        this.timesheetYear = this.timesheet.dateRange['0'].year;
+
+        this.dates = this.calendarService.getCalendar(this.timesheetMonth, this.timesheetYear);
         this.datesWithoutWeekends = _.filter(this.dates, {isWeekend: false});
     }
 
@@ -53,7 +63,7 @@ export class TimesheetComponent {
     }
 
     public notInCurrentMonth(date: CalendarDate): boolean {
-        return date.month !== this.givenMonth;
+        return date.month !== this.timesheetMonth;
     }
 
     public viewTimesheetDateView(date: CalendarDate) {

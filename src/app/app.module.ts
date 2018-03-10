@@ -9,6 +9,8 @@ import { ProjectManagerService } from './core/services/project-manager.service';
 import { OrganizationPreferencesService } from './core/services/organization-preferences.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { TimesheetService } from './core/services/timesheet.service';
+import { AppRoutingModule } from './app-routing.module';
+import { UUIDService } from './core/services/uuid.service';
 
 
 @NgModule({
@@ -20,12 +22,16 @@ import { TimesheetService } from './core/services/timesheet.service';
     TimesheetModule,
     DashboardModule,
     CoreModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppRoutingModule
   ],
   providers: [
+    // temporary service
+    UUIDService,
     TimesheetService,
     ProjectManagerService,
-    OrganizationPreferencesService],
+    OrganizationPreferencesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

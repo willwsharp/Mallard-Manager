@@ -1,7 +1,29 @@
+.mat-headline {
+    margin-bottom: 30px;
+}
+
+.mat-title {
+    font-size: 18px;
+    font-weight: normal;
+    color: white;
+    margin-bottom: 0px;
+}
+
+#active-timesheets-container {
+    background: #43A047;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
 
 .timesheet-overview-panel {
-    min-height: 40px;
+    margin-top: 3px;
     display: flex;
     align-items: center;
-    padding: 5px;
+    background: white;
+}
+
+.total-time-indicator {
+    display: flex;
+    align-items: center;
 }

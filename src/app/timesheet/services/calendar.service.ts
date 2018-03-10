@@ -9,7 +9,7 @@ import { AppUtils } from '../../core/util/AppUtils.util';
 
 @Injectable()
 export class CalendarService {
-
+    // TODO this will need to get expanded to use any period of time, not just a month
     public getCalendar(requestedMonth: Month = 5, requestedYear: number = moment().year()): CalendarDate[] {
         const result: CalendarDate[] = [];
         const dayCount: number = moment().month(requestedMonth).daysInMonth();

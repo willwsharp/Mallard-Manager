@@ -5,6 +5,8 @@ import { CalendarRange } from '../date-and-time/CalendarRange.model';
 
 export class Timesheet implements Validatable {
 
+    // will be changed to a different datatype later
+    public id: string;
     public slots: TimeSlot[] = [];
     public state: TimesheetState = TimesheetState.Active;
     public dateRange: CalendarRange;
