@@ -1,31 +1,120 @@
 <div id="dashboard-container">
     <div id="dashboard-header">
         <span class="mat-headline">Dashboard</span>
+        <span class="flex-space-filler"></span>
+        <button mat-raised-button class="time-record-btn">
+            <span>LOG TIME</span>
+        </button>
     </div>
     <div id="dashboard-body">
-        <div id="active-timesheets-container">
-            <span class="mat-title">Active Timesheets</span>
-            <div id="timesheet-list">
-                <ng-container *ngFor="let timesheet of timesheets; let index = index;">
-                    <div class="timesheet-overview-panel" *ngIf="timesheet.state === timesheetStates.Active">
-                        <mat-icon>date_range</mat-icon>
-                        <span style="margin-left: 5px;">
-                            {{timesheet.dateRange[0].getShortenedDate()}} - {{timesheet.dateRange[1].getShortenedDate()}}
-                        </span>
-                        <span class="flex-space-filler"></span>
-                        <span class="total-time-indicator">
-                            <mat-icon>timer</mat-icon>
-                            <!-- this will be dynamic -->
-                            <span style="margin-left: 3px;">35 hours</span>
-                        </span>
-                        <span class="flex-space-filler"></span>
-                        <div class="timesheet-panel-actions">
-                            <button mat-icon-button (click)="editTimesheet(timesheet)">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+        <div id="your-projects-title">
+            <span class="mat-title">Your Projects</span>
+        </div>
+        <div id="your-projects-container">
+            <div>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <span class="project-expansion-title">My First Project</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="project-overview">
+                            <mat-list>
+                                <mat-list-item class="dashboard-list-item">
+                                    <mat-icon matListIcon>person</mat-icon>
+                                    <span class="overview-item-label">Owner</span>
+                                    <span class="flex-space-filler"></span>
+                                    <!-- TODO make this clickable, will navigate to user profile -->
+                                    <span class="overview-item-data">William Sharp</span>
+                                </mat-list-item>
+                                <mat-list-item class="dashboard-list-item">
+                                    <mat-icon matListIcon>date_range</mat-icon>
+                                    <span class="overview-item-label">Time Period</span>
+                                    <span class="flex-space-filler"></span>
+                                    <span class="overview-item-data">2/01</span>
+                                    <span class="overview-item-data" style="margin: 0 5px;">-</span>
+                                    <span class="overview-item-data">2/28</span>
+                                    <!-- do some cool logic here based on how many days are left, probably with directive-->
+                                    <!-- <b style="color: #F44336;">1 day</b> -->
+                                </mat-list-item>
+                                <mat-list-item class="dashboard-list-item">
+                                    <mat-icon matListIcon>work</mat-icon>
+                                    <span class="overview-item-label">Hours</span>
+                                    <span class="flex-space-filler"></span>
+                                    <span class="overview-item-data">16</span>
+                                </mat-list-item>
+                                <mat-list-item class="dashboard-list-item">
+                                    <mat-icon matListIcon style="color: #43A047;">done</mat-icon>
+                                    <span class="overview-item-label" style="color: #43A047;">Submitted</span>
+                                </mat-list-item>
+                            </mat-list>
+                            <mat-action-row>
+                                <button mat-button>
+                                    VIEW
+                                </button>
+                                <span class="flex-space-filler"></span>
+                                <button mat-raised-button>
+                                    SUBMIT
+                                </button>
+                            </mat-action-row>
                         </div>
-                    </div>
-                </ng-container>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <span class="project-expansion-title">My Second Project</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="project-overview">
+                                <mat-list>
+                                    <mat-list-item class="dashboard-list-item">
+                                        <mat-icon matListIcon>person</mat-icon>
+                                        <span class="overview-item-label">Owner</span>
+                                        <span class="flex-space-filler"></span>
+                                        <!-- TODO make this clickable, will navigate to user profile -->
+                                        <span class="overview-item-data">William Sharp</span>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item class="dashboard-list-item">
+                                        <mat-icon matListIcon>date_range</mat-icon>
+                                        <span class="overview-item-label">Time Period</span>
+                                        <span class="flex-space-filler"></span>
+                                        <span class="overview-item-data">3/01</span>
+                                        <span class="overview-item-data" style="margin: 0 5px;">-</span>
+                                        <span class="overview-item-data">3/31</span>
+                                        <!-- do some cool logic here based on how many days are left, probably with directive-->
+                                        <!-- <b style="color: #F44336;">1 day</b> -->
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item class="dashboard-list-item">
+                                        <mat-icon matListIcon>work</mat-icon>
+                                        <span class="overview-item-label">Hours</span>
+                                        <span class="flex-space-filler"></span>
+                                        <span class="overview-item-data">4</span>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <mat-list-item class="dashboard-list-item">
+                                        <!-- when time's running out! -->
+                                        <!-- <mat-icon matListIcon style="color: #F44336;">error</mat-icon>
+                                        <h4 matLine class="overview-item-label" style="color: #F44336;">Unsubmitted</h4>
+                                        <p matLine style="color: #F44336; font-size: 12px;">1 day left</p> -->
+                                        <mat-icon matListIcon>info</mat-icon>
+                                        <span class="overview-item-label">Unsubmitted</span>
+                                    </mat-list-item>
+                                </mat-list>
+                                <mat-action-row>
+                                    <button mat-button>
+                                        VIEW
+                                    </button>
+                                    <span class="flex-space-filler"></span>
+                                    <button mat-raised-button>
+                                        SUBMIT
+                                    </button>
+                                </mat-action-row>
+                            </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
             </div>
         </div>
     </div>

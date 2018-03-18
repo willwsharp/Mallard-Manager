@@ -1,10 +1,13 @@
 import { BillingTimePrecision } from '../date-and-time/BillingTimePrecision.enum';
+import { Preferences } from '../preferences/preferences.interface';
+import { Organization } from '../organization/Organization.model';
 
 /**
  * Data associated with a given organization's preferences.
  * @author willwsharp
  */
-export class OrganizationPreferences {
+export class OrganizationPreferences implements Preferences {
+    public entity: Organization;
     private _billingPrecisionRequired: boolean = true;
     private _billingPrecision: BillingTimePrecision = BillingTimePrecision.TenthHour;
     private _commentRequired: boolean = false;

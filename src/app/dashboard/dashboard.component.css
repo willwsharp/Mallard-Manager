@@ -1,19 +1,39 @@
+#dashboard-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
 .mat-headline {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
+}
+
+.time-record-btn {
+    background: #43A047;
+    color: white;
+}
+
+.project-expansion-title {
+    font-size: 20px;
 }
 
 .mat-title {
     font-size: 18px;
     font-weight: normal;
-    color: white;
     margin-bottom: 0px;
+    display: flex;
+    align-items: center;
 }
 
-#active-timesheets-container {
+#your-projects-container {
     background: #43A047;
     padding: 5px;
     display: flex;
     flex-direction: column;
+}
+
+#your-projects-title {
+    display: flex;
 }
 
 .timesheet-overview-panel {
@@ -23,7 +43,18 @@
     background: white;
 }
 
+.overview-item-data,
+.overview-item-label {
+    position: relative;
+    top: 2px;
+}
+
 .total-time-indicator {
     display: flex;
     align-items: center;
+}
+
+.dashboard-list-item {
+    display: flex;
+    font-size: 16px;
 }

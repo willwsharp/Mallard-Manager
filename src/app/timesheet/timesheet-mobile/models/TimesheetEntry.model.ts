@@ -4,9 +4,9 @@ import * as _ from 'lodash';
 import { Validatable } from '../../../core/models/validation/Validatable.interface';
 import { TimeRange } from '../../../core/models/date-and-time/TimeRange.model';
 import { Time } from '../../../core/models/date-and-time/Time.model';
-import { Project } from '../../../core/models/organization/projects/Project.model';
-import { ProjectTask } from '../../../core/models/organization/projects/ProjectTask.model';
 import { AppUtils } from '../../../core/util/AppUtils.util';
+import { Project } from '../../../core/models/projects/Project.model';
+import { ProjectTask } from '../../../core/models/projects/ProjectTask.model';
 
 /**
  * Corresponds to the actual entry in the timesheet.

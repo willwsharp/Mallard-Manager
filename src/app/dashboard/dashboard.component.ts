@@ -25,6 +25,10 @@ export class DashboardComponent implements OnInit {
     }
 
     public editTimesheet(timesheet: Timesheet) {
-        this._router.navigateByUrl(`/timesheets/${timesheet.id}`);
+        this._router.navigateByUrl(`/timesheets/view/${timesheet.id}`);
+    }
+
+    public createTimesheet() {
+        this._router.navigateByUrl('/timesheets/create');
     }
 }

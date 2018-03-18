@@ -12,7 +12,7 @@ export class TimesheetService {
 
     private _timesheets: Timesheet[] = [];
 
-    constructor(private _uuidService: UUIDService) {
+    constructor() {
         // doing this here for now... will retrieve from service eventually
         const currentTimesheet: Timesheet = new Timesheet();
         currentTimesheet.dateRange = [
@@ -20,7 +20,7 @@ export class TimesheetService {
             new CalendarDate(1, DayOfWeek.Thur, Month.March, 2018, false),
             new CalendarDate(31, DayOfWeek.Sat, Month.March, 2018, true)
         ];
-        currentTimesheet.id = this._uuidService.generateUUID();
+        currentTimesheet.id = UUIDService.generateUUID();
 
         const anotherOpenTimesheet: Timesheet = new Timesheet();
         anotherOpenTimesheet.dateRange = [
@@ -28,7 +28,7 @@ export class TimesheetService {
             new CalendarDate(1, DayOfWeek.Sun, Month.April, 2018, true),
             new CalendarDate(30, DayOfWeek.Mon, Month.April, 2018, false)
         ];
-        anotherOpenTimesheet.id = this._uuidService.generateUUID();
+        anotherOpenTimesheet.id = UUIDService.generateUUID();
 
 
         const waitingForApprovalTimesheet: Timesheet = new Timesheet();
@@ -37,7 +37,7 @@ export class TimesheetService {
             new CalendarDate(28, DayOfWeek.Wed, Month.February, 2018, false)
         ];
         waitingForApprovalTimesheet.state = TimesheetState.WaitingForApproval;
-        waitingForApprovalTimesheet.id = this._uuidService.generateUUID();
+        waitingForApprovalTimesheet.id = UUIDService.generateUUID();
 
         const closedTimesheet: Timesheet = new Timesheet();
         closedTimesheet.dateRange = [
@@ -45,7 +45,7 @@ export class TimesheetService {
             new CalendarDate(31, DayOfWeek.Wed, Month.January, 2018, false)
         ];
         closedTimesheet.state = TimesheetState.Closed;
-        closedTimesheet.id = this._uuidService.generateUUID();
+        closedTimesheet.id = UUIDService.generateUUID();
 
         this._timesheets = [
             currentTimesheet,

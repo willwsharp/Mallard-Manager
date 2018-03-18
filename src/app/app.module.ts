@@ -11,6 +11,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { TimesheetService } from './core/services/timesheet.service';
 import { AppRoutingModule } from './app-routing.module';
 import { UUIDService } from './core/services/uuid.service';
+import { UserService } from './core/services/user.service';
 
 
 @NgModule({
@@ -26,11 +27,10 @@ import { UUIDService } from './core/services/uuid.service';
     AppRoutingModule
   ],
   providers: [
-    // temporary service
-    UUIDService,
     TimesheetService,
     ProjectManagerService,
-    OrganizationPreferencesService
+    OrganizationPreferencesService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

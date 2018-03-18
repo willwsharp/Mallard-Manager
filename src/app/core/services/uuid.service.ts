@@ -6,20 +6,12 @@ import { Injectable } from '@angular/core';
  * the app, this service will no longer be needed.
  * @author willwsharp
  */
-@Injectable()
 export class UUIDService {
-
-    public generateUUID(): string {
-        return this.uuidv4();
-    }
-
-    // Private functions
-
-    private uuidv4() {
+    public static generateUUID(): string {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-          // tslint:disable-next-line:no-bitwise
-          const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-          return v.toString(16);
-        });
-      }
+            // tslint:disable-next-line:no-bitwise
+            const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+    }
 }

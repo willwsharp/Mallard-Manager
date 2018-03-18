@@ -7,13 +7,13 @@ import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { AppUtils } from '../../../core/util/AppUtils.util';
 import { CalendarDate } from '../../../core/models/date-and-time/CalendarDate.model';
-import { Project } from '../../../core/models/organization/projects/Project.model';
-import { OrganizationPreferences } from '../../../core/models/organization/OrganizationPreferences.model';
 import { OrganizationPreferencesService } from '../../../core/services/organization-preferences.service';
 import { ProjectManagerService } from '../../../core/services/project-manager.service';
 import { TimeSlotService } from '../../services/time-slot.service';
-import { ProjectTask } from '../../../core/models/organization/projects/ProjectTask.model';
 import { Time } from '../../../core/models/date-and-time/Time.model';
+import { Project } from '../../../core/models/projects/Project.model';
+import { ProjectTask } from '../../../core/models/projects/ProjectTask.model';
+import { OrganizationPreferences } from '../../../core/models/preferences/OrganizationPreferences.model';
 
 // custom error matcher for the billing time input
 class NonNegativeErrorStateMatcher implements ErrorStateMatcher {

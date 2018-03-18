@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { OrganizationPreferences } from '../models/organization/OrganizationPreferences.model';
 import { BillingTimePrecision } from '../models/date-and-time/BillingTimePrecision.enum';
 import * as _ from 'lodash';
+import { OrganizationPreferences } from '../models/preferences/OrganizationPreferences.model';
 /**
  * Responsible for loading the preferences of the current user's organization
  * @author willwsharp
