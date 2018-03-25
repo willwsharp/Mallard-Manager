@@ -3,6 +3,11 @@ import { Timesheet } from '../core/models/timesheet/Timesheet.model';
 import { TimesheetService } from '../core/services/timesheet.service';
 import { TimesheetState } from '../core/models/timesheet/TimesheetState.enum';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Project } from '../core/models/projects/Project.model';
+import { ProjectManagerService } from '../core/services/project-manager.service';
+import { LaborCalendarService } from '../core/services/labor-calendar.service';
+import { UserService } from '../core/services/user.service';
+import { User } from '../core/models/user/User.model';
 
 @Component({
     selector: 'mm-dashboard',
@@ -13,15 +18,27 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-    public timesheets: Timesheet[] = [];
-    public timesheetStates: typeof TimesheetState = TimesheetState;
+    public projects: Project[] = [];
 
-    constructor(private _timesheetService: TimesheetService,
+    private _user: User;
+
+    constructor(private _projectService: ProjectManagerService,
                 private _router: Router,
-                private _activatedRoute: ActivatedRoute) {}
+                private _activatedRoute: ActivatedRoute,
+                private _laborCalendarService: LaborCalendarService,
+                private _userService: UserService) {}
 
     public ngOnInit() {
-        this.timesheets = this._timesheetService.getTimesheets();
+        this.projects = this._projectService.getAvailableProjects();
+        this._user = this._userService.user;
+    }
+
+    public getHoursForProject(project: Project): number {
+        return this._laborCalendarService.getHoursForProject(this._user.calendar, project);
+    }
+
+    public hasUserSubmittedTime(project: Project): boolean {
+        return this._laborCalendarService.containsUserLaborRecord(project.laborCalendar, this._user);
     }
 
     public editTimesheet(timesheet: Timesheet) {

@@ -12,6 +12,7 @@ import { TimesheetService } from './core/services/timesheet.service';
 import { AppRoutingModule } from './app-routing.module';
 import { UUIDService } from './core/services/uuid.service';
 import { UserService } from './core/services/user.service';
+import { LaborCalendarService } from './core/services/labor-calendar.service';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { UserService } from './core/services/user.service';
     TimesheetService,
     ProjectManagerService,
     OrganizationPreferencesService,
-    UserService
+    UserService,
+    LaborCalendarService
   ],
   bootstrap: [AppComponent]
 })

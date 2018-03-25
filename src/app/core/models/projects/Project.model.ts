@@ -7,16 +7,15 @@ import { Validatable } from '../validation/Validatable.interface';
 import { Organization } from '../organization/Organization.model';
 import { TimeRange } from '../date-and-time/TimeRange.model';
 import { CalendarRange } from '../date-and-time/CalendarRange.model';
+import { LaborCalendar } from '../labor-calendar/LaborCalendar.model';
 
 export class Project implements Project, Validatable {
     // we'll worry about these later...
     public id: string;
     public preferences: Preferences;
-    // current time period
-    // should this change automatically or be done manually?
-    public timePeriod: CalendarRange;
     public members: User[] = [];
     public owner: User;
+    public laborCalendar: LaborCalendar;
     // a project does not need to be part of an organization
     public org: Organization | null;
     // lots more properties to come
