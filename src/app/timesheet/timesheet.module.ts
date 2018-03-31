@@ -8,14 +8,12 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule, MatRippleModule } 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TimeSlotEditorComponent } from './timesheet-mobile/time-slot-editor/time-slot-editor.component';
 import { TimesheetRoutingModule } from './timesheet-routing.module';
-import { TimesheetCreatorComponent } from './timesheet-creator/timesheet-creator.component';
 import { TimesheetViewerComponent } from './timesheet-viewer/timesheet-viewer.component';
 
 @NgModule({
     declarations: [
         TimesheetComponent,
         TimeSlotEditorComponent,
-        TimesheetCreatorComponent,
         TimesheetViewerComponent
     ],
     imports: [
@@ -30,7 +28,6 @@ import { TimesheetViewerComponent } from './timesheet-viewer/timesheet-viewer.co
         ReactiveFormsModule
     ],
     entryComponents: [
-        TimesheetCreatorComponent,
         TimesheetViewerComponent
     ],
     exports: [

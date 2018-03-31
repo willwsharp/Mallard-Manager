@@ -13,21 +13,35 @@
     color: white;
 }
 
+#calendar-container {
+    margin-bottom: 10px;
+}
+
+#calendar-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .project-expansion-title {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .mat-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: normal;
     margin-bottom: 0px;
     display: flex;
     align-items: center;
 }
 
-#your-projects-container {
+.dashboard-content-container {
     background: #43A047;
-    padding: 5px;
+    color: white;
+    border: 2px solid #43A047;
+}
+
+#your-projects-body {
     display: flex;
     flex-direction: column;
 }
@@ -57,4 +71,9 @@
 .dashboard-list-item {
     display: flex;
     font-size: 16px;
+}
+
+.month-changer-icon {
+    position: relative;
+    top: -2px;
 }

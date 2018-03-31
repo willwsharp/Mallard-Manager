@@ -6,11 +6,18 @@ import { Month } from '../../core/models/date-and-time/Month.enum';
 import { CalendarDate } from '../../core/models/date-and-time/CalendarDate.model';
 import { AppUtils } from '../../core/util/AppUtils.util';
 
-
+/**
+ * This service provides utility functions for Calendars.
+ * @author willwsharp
+ */
 @Injectable()
 export class CalendarService {
-    // TODO this will need to get expanded to use any period of time, not just a month
-    public getCalendar(requestedMonth: Month = 5, requestedYear: number = moment().year()): CalendarDate[] {
+    /**
+     * Get the dates for the given month and year
+     * @param requestedMonth default is current month
+     * @param requestedYear default is current year
+     */
+    public getCalendar(requestedMonth: Month = moment().month(), requestedYear: number = moment().year()): CalendarDate[] {
         const result: CalendarDate[] = [];
         const dayCount: number = moment().month(requestedMonth).daysInMonth();
         const daysBeforeFirstDay: number = moment().year(requestedYear).month(requestedMonth).date(1).day();
@@ -19,16 +26,16 @@ export class CalendarService {
         let currentDay: number = startDay;
         let daysLeftToAdd: number;
 
+        /* Continuously build the calendar until we completed the given month, make sure we round the calendar out to
+           the nearest saturday so we make it easier to view */
         while (continueBuildingCalendar) {
             const momentDate: moment.Moment = moment().year(requestedYear).month(requestedMonth).date(currentDay);
             const isWeekend: boolean = momentDate.day() === DayOfWeek.Sat || momentDate.day() === DayOfWeek.Sun;
 
             result.push(new CalendarDate(
                 momentDate.date(),
-                momentDate.day(),
                 momentDate.month(),
                 momentDate.year(),
-                isWeekend
             ));
 
             currentDay++;
@@ -49,10 +56,6 @@ export class CalendarService {
             }
         }
         return result;
-    }
-
-    public saveTimesheet(): boolean {
-        return false;
     }
 
     private isLastDayInMonth(requestedMonth: Month, requestedYear: number, day: moment.Moment, dayCount: number): boolean {

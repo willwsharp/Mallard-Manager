@@ -8,6 +8,9 @@ import { ProjectManagerService } from '../core/services/project-manager.service'
 import { LaborCalendarService } from '../core/services/labor-calendar.service';
 import { UserService } from '../core/services/user.service';
 import { User } from '../core/models/user/User.model';
+import { Month } from '../core/models/date-and-time/Month.enum';
+import * as moment from 'moment';
+import { AppUtils } from '../core/util/AppUtils.util';
 
 @Component({
     selector: 'mm-dashboard',
@@ -19,8 +22,11 @@ import { User } from '../core/models/user/User.model';
 export class DashboardComponent implements OnInit {
 
     public projects: Project[] = [];
-
+    public month: Month = moment().month();
+    public months: typeof Month = Month;
+    public year: number = moment().year();
     private _user: User;
+    private SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
 
     constructor(private _projectService: ProjectManagerService,
                 private _router: Router,
@@ -41,11 +47,28 @@ export class DashboardComponent implements OnInit {
         return this._laborCalendarService.containsUserLaborRecord(project.laborCalendar, this._user);
     }
 
-    public editTimesheet(timesheet: Timesheet) {
-        this._router.navigateByUrl(`/timesheets/view/${timesheet.id}`);
+    public goToNextMonth() {
+        const monthBefore: number = this.month;
+        this.month = AppUtils.properModulus(++this.month, 12);
+        if (this.month < monthBefore) {
+            this.year++;
+        }
     }
 
-    public createTimesheet() {
-        this._router.navigateByUrl('/timesheets/create');
+    public goToPreviousMonth() {
+        const monthBefore: number = this.month;
+        this.month = AppUtils.properModulus(--this.month, 12);
+        if (this.month > monthBefore) {
+            this.year--;
+        }
+    }
+
+    public swipe(swipeDir: string = this.SWIPE_ACTION.RIGHT): void {
+        if (swipeDir === this.SWIPE_ACTION.RIGHT) {
+            this.goToNextMonth();
+        }
+        if (swipeDir === this.SWIPE_ACTION.LEFT) {
+            this.goToPreviousMonth();
+        }
     }
 }

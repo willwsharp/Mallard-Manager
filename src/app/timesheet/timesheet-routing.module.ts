@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TimesheetComponent } from './timesheet.component';
-import { TimesheetCreatorComponent } from './timesheet-creator/timesheet-creator.component';
 import { TimesheetViewerComponent } from './timesheet-viewer/timesheet-viewer.component';
 
 const timesheetRoutes: Routes = [
@@ -10,10 +9,6 @@ const timesheetRoutes: Routes = [
         path: 'timesheets',
         component: TimesheetComponent,
         children: [
-            {
-                path: 'create',
-                component: TimesheetCreatorComponent
-            },
             {
                 path: 'view/:id',
                 component: TimesheetViewerComponent

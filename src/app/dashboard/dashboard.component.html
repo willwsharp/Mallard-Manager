@@ -7,11 +7,20 @@
         </button>
     </div>
     <div id="dashboard-body">
-        <div id="your-projects-title">
-            <span class="mat-title">Your Projects</span>
+        <div id="calendar-container" class="dashboard-content-container">
+            <div id="calendar-title">
+                <span class="mat-title">{{months[month]}}</span>
+                <span class="mat-title" style="margin-left: 10px;">{{year}}</span>
+            </div>
+            <div id="calendar-body" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+                <mm-labor-calendar [givenMonth]="month" [givenYear]="year"></mm-labor-calendar>
+            </div>
         </div>
-        <div id="your-projects-container">
-            <div>
+        <div id="your-projects-container" class="dashboard-content-container">
+            <div id="your-projects-title">
+                <span class="mat-title" style="margin-left: 5px;">Projects</span>
+            </div>
+            <div id="your-projects-body">
                 <mat-accordion>
                     <mat-expansion-panel *ngFor="let project of projects">
                         <mat-expansion-panel-header>
