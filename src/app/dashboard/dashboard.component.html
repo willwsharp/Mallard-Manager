@@ -1,0 +1,92 @@
+<div id="dashboard-container">
+    <div id="dashboard-header">
+        <span class="mat-headline">Dashboard</span>
+        <span class="flex-space-filler"></span>
+        <button mat-raised-button class="time-record-btn">
+            <span>LOG TIME</span>
+        </button>
+    </div>
+    <div id="dashboard-body">
+        <div id="calendar-container" class="dashboard-content-container">
+            <div id="calendar-title">
+                <span class="mat-title container-title">{{months[month]}}</span>
+                <span class="mat-title" style="margin-left: 10px;">{{year}}</span>
+                <span class="flex-space-filler"></span>
+                <button mat-icon-button (click)="toggleCalendarVisibility()">
+                    <mat-icon>visibility{{calendarVisible ? '_off' : ''}}</mat-icon>
+                </button>
+            </div>
+            <!-- TODO add animation on swipe left/right to show transition and on toggle -->
+            <div id="calendar-body" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)" *ngIf="calendarVisible">
+                <mm-labor-calendar [givenMonth]="month" [givenYear]="year"></mm-labor-calendar>
+            </div>
+        </div>
+        <div id="your-projects-container" class="dashboard-content-container">
+            <div id="your-projects-title">
+                <span class="mat-title container-title">Projects</span>
+            </div>
+            <div id="your-projects-body">
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let project of projects">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <span class="project-expansion-title">{{project.name}}</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="project-overview">
+                            <mat-list>
+                                <mat-list-item class="dashboard-list-item">
+                                    <mat-icon matListIcon>person</mat-icon>
+                                    <span class="overview-item-label">Owner</span>
+                                    <span class="flex-space-filler"></span>
+                                    <!-- TODO make this clickable, will navigate to user profile -->
+                                    <span class="overview-item-data">{{project.owner.longName}}</span>
+                                </mat-list-item>
+                                <mat-list-item class="dashboard-list-item">
+                                    <mat-icon matListIcon>date_range</mat-icon>
+                                    <span class="overview-item-label">Time Period</span>
+                                    <span class="flex-space-filler"></span>
+                                    <span class="overview-item-data">{{project.laborCalendar.dateRange[0].getShortenedDate()}}</span>
+                                    <span class="overview-item-data" style="margin: 0 5px;">-</span>
+                                    <span class="overview-item-data">{{project.laborCalendar.dateRange[1].getShortenedDate()}}</span>
+                                </mat-list-item>
+                                <mat-list-item class="dashboard-list-item">
+                                    <mat-icon matListIcon>work</mat-icon>
+                                    <span class="overview-item-label">Hours</span>
+                                    <span class="flex-space-filler"></span>
+                                    <span class="overview-item-data">{{getHoursForProject(project)}}</span>
+                                </mat-list-item>
+                                <mat-list-item class="dashboard-list-item">
+                                    <!-- when time's running out! -->
+                                    <!-- <mat-icon matListIcon style="color: #F44336;">error</mat-icon>
+                                    <h4 matLine class="overview-item-label" style="color: #F44336;">Unsubmitted</h4>
+                                    <p matLine style="color: #F44336; font-size: 12px;">1 day left</p> -->
+                                    <ng-container *ngTemplateOutlet="hasUserSubmittedTime(project) ? submitted : unsubmitted"></ng-container>
+                                </mat-list-item>
+                            </mat-list>
+                            <mat-action-row>
+                                <button mat-button>
+                                    VIEW
+                                </button>
+                                <span class="flex-space-filler"></span>
+                                <button mat-raised-button>
+                                    SUBMIT
+                                </button>
+                            </mat-action-row>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #submitted>
+    <mat-icon matListIcon style="color: #43A047;">done</mat-icon>
+    <span class="overview-item-label" style="color: #43A047;">Submitted</span>
+</ng-template>
+
+<ng-template #unsubmitted>
+    <mat-icon matListIcon>info</mat-icon>
+    <span class="overview-item-label">Unsubmitted</span>
+</ng-template>

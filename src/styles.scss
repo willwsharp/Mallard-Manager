@@ -4,9 +4,9 @@
 
 @import './mm-theme.scss';
 /* temp location/color; move somewhere else eventually */
-.mat-grid-tile {
-    border: 1px solid mat-color($mm-app-primary) ;
-}
+// .mat-grid-tile {
+//     border: 1px solid #ddd;
+// }
 
 body {
     font-family: $mat-font-family;

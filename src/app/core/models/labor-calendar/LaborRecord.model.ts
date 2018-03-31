@@ -1,28 +1,21 @@
-
+import { AppUtils } from '../../util/AppUtils.util';
+import { TimeRange } from '../date-and-time/TimeRange.model';
+import { Time } from '../date-and-time/Time.model';
+import { Project } from '../projects/Project.model';
+import { ProjectTask } from '../projects/ProjectTask.model';
 import * as moment from 'moment';
 import * as _ from 'lodash';
-import { Validatable } from '../../../core/models/validation/Validatable.interface';
-import { TimeRange } from '../../../core/models/date-and-time/TimeRange.model';
-import { Time } from '../../../core/models/date-and-time/Time.model';
-import { AppUtils } from '../../../core/util/AppUtils.util';
-import { Project } from '../../../core/models/projects/Project.model';
-import { ProjectTask } from '../../../core/models/projects/ProjectTask.model';
+import { User } from '../user/User.model';
 
-/**
- * Corresponds to the actual entry in the timesheet.
- * @author willwsharp
- */
-export class TimesheetEntry implements Validatable {
-
+export class LaborRecord {
     public timeRange: TimeRange = [
         new Time(9, 0, 'AM'),
         new Time(5, 0, 'PM')
     ];
-
-    constructor(public project: Project = new Project(''),
-                public task: ProjectTask = new ProjectTask(''),
+    constructor(public project: Project = new Project(''), public task: ProjectTask = new ProjectTask(''),
                 public billingTime: number = null,
-                public comment: string = '') { }
+                public comment: string = '',
+                public user: User) { }
 
     public isValid(): boolean {
         let isValid: boolean;

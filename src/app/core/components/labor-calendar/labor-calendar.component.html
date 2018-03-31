@@ -1,0 +1,17 @@
+<div id="labor-calendar-container">
+    <mat-grid-list [cols]="7">
+        <ng-container *ngFor="let weekday of daysOfWeek">
+            <mat-grid-tile class="calendar-tile weekday-header-tile">{{weekday}}</mat-grid-tile>
+        </ng-container>
+    </mat-grid-list>
+    <mat-divider></mat-divider>
+    <mat-grid-list id="labor-calendar" [cols]="7" rowHeight="1:1">
+        <ng-container *ngFor="let date of dates">
+            <mat-grid-tile  class="calendar-tile"
+            [ngClass]="{'not-in-month': notInCurrentMonth(date)}"
+            (click)="viewTimesheetDateView(date)">
+                <span [ngClass]="{'current-date': isCurrentDate(date)}" class="calendar-date-text">{{date.date}}</span>
+            </mat-grid-tile>
+        </ng-container>
+    </mat-grid-list>
+</div>

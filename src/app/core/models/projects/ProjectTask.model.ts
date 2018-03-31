@@ -1,4 +1,4 @@
-import { Validatable } from '../../validation/Validatable.interface';
+import { Validatable } from '../validation/Validatable.interface';
 
 export class ProjectTask implements Validatable {
     constructor(public name: string) {}

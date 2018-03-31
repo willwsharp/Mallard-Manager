@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TimeSlot } from '../timesheet-mobile/date-view/models/TimeSlot.model';
 import { CalendarDate } from '../../core/models/date-and-time/CalendarDate.model';
+import { TimeSlot } from '../timesheet-mobile/models/TimeSlot.model';
 
 /**
  * Manages Timeslot data and preferences

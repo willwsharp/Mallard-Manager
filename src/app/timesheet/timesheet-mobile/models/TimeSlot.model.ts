@@ -1,5 +1,5 @@
 import { TimesheetEntry } from './TimesheetEntry.model';
-import _ = require('lodash');
+import * as _ from 'lodash';
 
 export class TimeSlot {
     // more properties to come here

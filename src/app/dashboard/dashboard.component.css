@@ -1,0 +1,82 @@
+#dashboard-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.mat-headline {
+    margin-bottom: 0px;
+}
+
+.time-record-btn {
+    background: #43A047;
+    color: white;
+}
+
+#calendar-container {
+    margin-bottom: 10px;
+}
+
+#calendar-title {
+    display: flex;
+    align-items: center;
+}
+
+.project-expansion-title {
+    font-size: 18px;
+}
+
+.container-title {
+    margin-left: 5px;
+}
+
+.mat-title {
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-content-container {
+    background: #43A047;
+    color: white;
+    border: 2px solid #43A047;
+}
+
+#your-projects-body {
+    display: flex;
+    flex-direction: column;
+}
+
+#your-projects-title {
+    display: flex;
+}
+
+.timesheet-overview-panel {
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    background: white;
+}
+
+.overview-item-data,
+.overview-item-label {
+    position: relative;
+    top: 2px;
+}
+
+.total-time-indicator {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-list-item {
+    display: flex;
+    font-size: 16px;
+}
+
+.month-changer-icon {
+    position: relative;
+    top: -2px;
+}

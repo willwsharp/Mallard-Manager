@@ -1,0 +1,38 @@
+#labor-calendar-container {
+    background: white;
+}
+
+#labor-calendar .not-in-month {
+    background: lightgrey;
+    opacity: .5;
+    border-right: 1px solid darkgrey;
+    border-bottom: 1px solid darkgrey;
+}
+
+#labor-calendar .current-date {
+    background: #087f23;
+    color: white;
+}
+
+.mat-display-2 {
+    margin-bottom: 0px;
+    font-size: 18px;
+    color: black;
+}
+
+.weekday-header-tile {
+    border-bottom: 0px;
+}
+
+.calendar-tile {
+    background: white;
+    color: black;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.calendar-date-text {
+    border-radius: 50px;
+    padding: 5px;
+    font-size: 14px;
+}
