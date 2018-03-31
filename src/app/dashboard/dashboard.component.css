@@ -19,12 +19,15 @@
 
 #calendar-title {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
 .project-expansion-title {
     font-size: 18px;
+}
+
+.container-title {
+    margin-left: 5px;
 }
 
 .mat-title {

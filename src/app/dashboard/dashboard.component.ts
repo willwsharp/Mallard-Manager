@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
     public month: Month = moment().month();
     public months: typeof Month = Month;
     public year: number = moment().year();
+    public calendarVisible: boolean = true;
     private _user: User;
     private SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
 
@@ -47,20 +48,8 @@ export class DashboardComponent implements OnInit {
         return this._laborCalendarService.containsUserLaborRecord(project.laborCalendar, this._user);
     }
 
-    public goToNextMonth() {
-        const monthBefore: number = this.month;
-        this.month = AppUtils.properModulus(++this.month, 12);
-        if (this.month < monthBefore) {
-            this.year++;
-        }
-    }
-
-    public goToPreviousMonth() {
-        const monthBefore: number = this.month;
-        this.month = AppUtils.properModulus(--this.month, 12);
-        if (this.month > monthBefore) {
-            this.year--;
-        }
+    public toggleCalendarVisibility() {
+        this.calendarVisible = !this.calendarVisible;
     }
 
     public swipe(swipeDir: string = this.SWIPE_ACTION.RIGHT): void {
@@ -69,6 +58,24 @@ export class DashboardComponent implements OnInit {
         }
         if (swipeDir === this.SWIPE_ACTION.LEFT) {
             this.goToPreviousMonth();
+        }
+    }
+
+    // Private functions
+
+    private goToNextMonth() {
+        const monthBefore: number = this.month;
+        this.month = AppUtils.properModulus(++this.month, 12);
+        if (this.month < monthBefore) {
+            this.year++;
+        }
+    }
+
+    private goToPreviousMonth() {
+        const monthBefore: number = this.month;
+        this.month = AppUtils.properModulus(--this.month, 12);
+        if (this.month > monthBefore) {
+            this.year--;
         }
     }
 }
