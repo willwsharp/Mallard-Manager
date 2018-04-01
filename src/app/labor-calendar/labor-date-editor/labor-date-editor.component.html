@@ -1,0 +1,20 @@
+<div id="labor-date-editor-container">
+    <div id="editor-header">
+        <button (click)="returnToCalendarView()" mat-icon-button id="return-to-calendar-btn">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span id="current-date-text" class="mat-display-2" *ngIf="!noDateGiven">{{ dateToEdit }}</span>
+        <span *ngIf="noDateGiven">ERROR: No Date Given!</span>
+    </div>
+    <div id="editor-body">
+        <div id="action-bar">
+            <button mat-icon-button>
+                <mat-icon>add</mat-icon>
+            </button>
+            <span class="flex-space-filler"></span>
+            <button mat-icon-button>
+                <mat-icon>save</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

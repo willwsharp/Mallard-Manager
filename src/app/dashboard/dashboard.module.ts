@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatIconModule, MatExpansionModule, MatListModule, MatDividerModule } from '@angular/material';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CoreModule } from '../core/core.module';
+import { LaborCalendarModule } from '../labor-calendar/labor-calendar.module';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { CoreModule } from '../core/core.module';
         MatExpansionModule,
         DashboardRoutingModule,
         MatListModule,
-        MatDividerModule
+        MatDividerModule,
+        LaborCalendarModule
     ],
     exports: [
         DashboardComponent

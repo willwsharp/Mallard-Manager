@@ -54,10 +54,10 @@ export class DashboardComponent implements OnInit {
 
     public swipe(swipeDir: string = this.SWIPE_ACTION.RIGHT): void {
         if (swipeDir === this.SWIPE_ACTION.RIGHT) {
-            this.goToNextMonth();
+            this.goToPreviousMonth();
         }
         if (swipeDir === this.SWIPE_ACTION.LEFT) {
-            this.goToPreviousMonth();
+            this.goToNextMonth();
         }
     }
 

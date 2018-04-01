@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Month } from '../../models/date-and-time/Month.enum';
-import { CalendarDate } from '../../models/date-and-time/CalendarDate.model';
-import { DayOfWeek } from '../../models/date-and-time/DayOfWeek.enum';
 import * as _ from 'lodash';
-import { CalendarService } from '../../../timesheet/services/calendar.service';
 import { MatSlideToggleChange } from '@angular/material';
 import * as moment from 'moment';
+import { Month } from '../core/models/date-and-time/Month.enum';
+import { DayOfWeek } from '../core/models/date-and-time/DayOfWeek.enum';
+import { CalendarDate } from '../core/models/date-and-time/CalendarDate.model';
+import { CalendarService } from '../timesheet/services/calendar.service';
 
 @Component({
     selector: 'mm-labor-calendar',
@@ -30,6 +30,10 @@ export class LaborCalendarComponent implements OnInit {
         this._givenYear = newYear;
         this.dates = this.calendarService.getCalendar(this._givenMonth, this.givenYear);
     }
+    /**
+     * Allows this calendar to be editable or not
+     */
+    @Input() editable: boolean = true;
     public displayWeekends = false;
     public dates: CalendarDate[] = [];
     // we need to be able to iterate over the keys in the DayOfWeek enum
@@ -37,6 +41,7 @@ export class LaborCalendarComponent implements OnInit {
     public daysOfWeek: string[] = _.filter(_.keys(DayOfWeek), (key: any) => !isNaN(Number(DayOfWeek[key])));
     public months: typeof Month = Month;
     public dateSelected: CalendarDate = null;
+    public displayCalendarView: boolean = true;
 
     private _givenMonth: Month = moment().month();
     private _givenYear: number = moment().year();
@@ -53,8 +58,9 @@ export class LaborCalendarComponent implements OnInit {
     }
 
     public viewTimesheetDateView(date: CalendarDate) {
-        if (!this.notInCurrentMonth(date)) {
+        if (!this.notInCurrentMonth(date) && this.editable) {
             this.dateSelected = date;
+            this.displayCalendarView = false;
         }
     }
 
@@ -62,5 +68,10 @@ export class LaborCalendarComponent implements OnInit {
         return (date.date === moment().date()) &&
             (date.month === moment().month()) &&
             (date.year === moment().year());
+    }
+
+    public onEditFinished() {
+        this.displayCalendarView = true;
+        this.dateSelected = null;
     }
 }

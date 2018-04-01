@@ -1,0 +1,29 @@
+#labor-date-editor-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#editor-header {
+    display: flex;
+    align-items: center;
+}
+
+.mat-display-2 {
+    margin-bottom: 0px;
+    font-size: 18px;
+    color: black;
+}
+
+#current-date-text {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+#return-to-calendar-btn {
+    position: absolute;
+}
+
+#action-bar {
+    display: flex;
+}
