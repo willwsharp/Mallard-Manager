@@ -6,6 +6,7 @@ import { Month } from '../core/models/date-and-time/Month.enum';
 import { DayOfWeek } from '../core/models/date-and-time/DayOfWeek.enum';
 import { CalendarDate } from '../core/models/date-and-time/CalendarDate.model';
 import { CalendarService } from '../timesheet/services/calendar.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'mm-labor-calendar',
@@ -46,7 +47,8 @@ export class LaborCalendarComponent implements OnInit {
     private _givenMonth: Month = moment().month();
     private _givenYear: number = moment().year();
 
-    constructor(private calendarService: CalendarService) { }
+    constructor(private calendarService: CalendarService,
+                private router: Router) { }
 
     public ngOnInit() {
         // TODO: get labor calendar for user and month
@@ -61,6 +63,7 @@ export class LaborCalendarComponent implements OnInit {
         if (!this.notInCurrentMonth(date) && this.editable) {
             this.dateSelected = date;
             this.displayCalendarView = false;
+            this.router.navigateByUrl('labor-calendar/editor');
         }
     }
 
