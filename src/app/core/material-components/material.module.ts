@@ -2,7 +2,12 @@ import {  MatGridListModule,
           MatIconModule,
           MatButtonModule,
           MatCardModule,
-          MatDividerModule} from '@angular/material';
+          MatDividerModule,
+          MatExpansionModule,
+          MatListModule,
+          MatSelectModule,
+          MatFormFieldModule,
+          MatInputModule} from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgModule } from '@angular/core';
 
@@ -13,7 +18,13 @@ import { NgModule } from '@angular/core';
         MatIconModule,
         MatButtonModule,
         MatCardModule,
-        MatDividerModule
+        MatDividerModule,
+        MatButtonModule,
+        MatExpansionModule,
+        MatListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule
     ]
 })
 export class MaterialModule { }

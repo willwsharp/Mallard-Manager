@@ -12,8 +12,23 @@ body {
     font-family: $mat-font-family;
     font-weight: normal;
     height: 100%;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 .flex-space-filler {
     flex: 1 auto;
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.fill-to-expand-page {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
