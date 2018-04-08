@@ -12,10 +12,11 @@ export class LaborRecord {
         new Time(9, 0, 'AM'),
         new Time(5, 0, 'PM')
     ];
-    constructor(public project: Project = new Project(''), public task: ProjectTask = new ProjectTask(''),
-                public billingTime: number = null,
-                public comment: string = '',
-                public user: User) { }
+    constructor(public user: User,
+                public project: Project = new Project(''),
+                public task: ProjectTask = new ProjectTask(''),
+                public billingTime: number = 0,
+                public comment: string = '') { }
 
     public isValid(): boolean {
         let isValid: boolean;

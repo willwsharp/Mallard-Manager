@@ -1,20 +1,66 @@
-<div id="labor-date-editor-container">
-    <div id="editor-header">
+<div id="labor-date-editor-container" class="fill-to-expand-page">
+    <div id="editor-header" class="mat-elevation-z3">
         <button (click)="returnToCalendarView()" mat-icon-button id="return-to-calendar-btn">
             <mat-icon>arrow_back</mat-icon>
         </button>
-        <span id="current-date-text" class="mat-display-2" *ngIf="!noDateGiven">{{ dateToEdit }}</span>
-        <span *ngIf="noDateGiven">ERROR: No Date Given!</span>
+        <span class="flex-space-filler"></span>
+        <span class="mat-display-2">{{ laborDateToEdit.date }}</span>
+        <span class="flex-space-filler"></span>
+        <button mat-icon-button [disabled]="!canSave()" (click)="saveLaborDate()">
+            <mat-icon>save</mat-icon>
+        </button>
     </div>
     <div id="editor-body">
-        <div id="action-bar">
-            <button mat-icon-button>
-                <mat-icon>add</mat-icon>
-            </button>
-            <span class="flex-space-filler"></span>
-            <button mat-icon-button>
-                <mat-icon>save</mat-icon>
-            </button>
-        </div>
+        <mat-accordion class="labor-record-accordion">
+            <mat-expansion-panel *ngFor="let record of laborDateToEdit.records; let index = index;" hideToggle="true" expanded="true">
+                <!-- TODO improve record closed state -->
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>Project</b>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{ record.project.name || 'No Project Specified' }}
+                        <button mat-icon-button (click)="removeRecord(index)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="labor-record-container">
+                    <mat-form-field class="labor-record-form-field">
+                        <mat-select placeholder="Select a Project">
+                            <mat-option *ngFor="let project of availableProjects" [value]="project.name"
+                                (click)="onProjectSelected(project, index)">
+                                {{ project.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select placeholder="Select a Task" [disabled]="!record.project.name">
+                            <mat-option *ngFor="let task of record.project.tasks" [value]="task.name"
+                                (click)="onTaskSelected(task, index)">
+                                {{ task.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Input your time in hours" type="number" min="0" required
+                            [errorStateMatcher]="errorStateMatcher"
+                            [(ngModel)]="record.billingTime" 
+                            [disabled]="!record.task.name">
+                        <mat-error>{{ getErrorMessage(index) }}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <textarea matInput [(ngModel)]="record.comment" 
+                            placeholder="{{ commentRequired(record.project) ? 'Required' : 'Optional'}} Comments" maxlength="256"
+                            [required]="commentRequired(record.project)"></textarea>
+                        <mat-hint align="end">{{ record.comment.length }} / 256</mat-hint>
+                    </mat-form-field>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
+
+    <button mat-fab id="add-entry-btn" (click)="addRecord()">
+        <mat-icon style="position: relative; top: -2px;">add</mat-icon>
+    </button>
 </div>

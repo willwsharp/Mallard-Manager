@@ -63,7 +63,7 @@ export class LaborCalendarComponent implements OnInit {
         if (!this.notInCurrentMonth(date) && this.editable) {
             this.dateSelected = date;
             this.displayCalendarView = false;
-            this.router.navigateByUrl('labor-calendar/editor');
+            this.router.navigateByUrl(`labor-calendar/editor/${date.getShortenedDate(true)}`);
         }
     }
 

@@ -6,7 +6,7 @@ import { LaborDateEditorComponent } from './labor-date-editor/labor-date-editor.
 const routes: Routes = [
     // TODO: add view/save routes later
     {
-        path: 'labor-calendar/editor',
+        path: 'labor-calendar/editor/:givenDate',
         component: LaborDateEditorComponent
     }
 ];

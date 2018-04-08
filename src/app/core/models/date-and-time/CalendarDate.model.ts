@@ -9,6 +9,15 @@ export class CalendarDate {
     public dayOfWeek: DayOfWeek;
     public isWeekend: boolean;
 
+    /**
+     * Creates a CalendarDate from a given date string
+     * @param dashStr date string in the format of MM-DD-YY
+     */
+    static fromDashSeparatedString(dashStr: String): CalendarDate {
+        const dateSegments: string[] = dashStr.split('-');
+        return new CalendarDate(+dateSegments[1], +dateSegments[0] - 1 , +dateSegments[2]);
+    }
+
     constructor(public date: number, public month: Month, public year: number) {
         this.dayOfWeek = moment([this.year, this.month, this.date]).day();
         this.isWeekend = this.dayOfWeek === 5 || this.dayOfWeek === 6;
@@ -29,9 +38,9 @@ export class CalendarDate {
 
     public getShortenedDate(includeYear: boolean = false) {
         if (includeYear) {
-            return moment([this.year, this.month, this.date]).format('MM/DD/YYYY');
+            return moment([this.year, this.month, this.date]).format('MM-DD-YYYY');
         } else {
-            return moment([this.year, this.month, this.date]).format('MM/DD');
+            return moment([this.year, this.month, this.date]).format('MM-DD');
         }
     }
 
