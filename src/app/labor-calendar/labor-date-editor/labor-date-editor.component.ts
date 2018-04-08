@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, Input, OnInit, ChangeDetectorRef, HostBinding } from '@angular/core';
+import { Location } from '@angular/common';
 import { AppUtils } from '../../core/util/AppUtils.util';
 import { CalendarDate } from '../../core/models/date-and-time/CalendarDate.model';
 import { ActivatedRoute } from '@angular/router';
@@ -31,7 +32,6 @@ class NonNegativeErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LaborDateEditorComponent implements OnInit {
 
-    @Output() public editFinished: EventEmitter<boolean> = new EventEmitter<boolean>();
     public laborDateToEdit: LaborDate;
     public availableProjects: Project[] = [];
     public errorStateMatcher: NonNegativeErrorStateMatcher;
@@ -40,6 +40,7 @@ export class LaborDateEditorComponent implements OnInit {
     private _originalLaborDate: LaborDate;
     @HostBinding('class') private _hostClass: string = 'fill-to-expand-page';
     constructor(private _route: ActivatedRoute,
+                private _location: Location,
                 private _userService: UserService,
                 private _projectService: ProjectManagerService,
                 private _changeDetectorRef: ChangeDetectorRef) { }
@@ -56,7 +57,7 @@ export class LaborDateEditorComponent implements OnInit {
     }
 
     public returnToCalendarView() {
-        this.editFinished.emit(true);
+        this._location.back();
     }
 
     public addRecord() {

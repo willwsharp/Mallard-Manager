@@ -11,10 +11,10 @@
     <mat-divider></mat-divider>
     <mat-grid-list id="labor-calendar" [cols]="7" rowHeight="1:1">
         <ng-container *ngFor="let date of dates">
-            <mat-grid-tile class="calendar-tile" [ngClass]="{'not-in-month': notInCurrentMonth(date)}" (click)="viewTimesheetDateView(date)">
+            <mat-grid-tile class="calendar-tile" [ngClass]="{'not-in-month': notInCurrentMonth(date), 'current-date': isCurrentDate(date)}" (click)="viewTimesheetDateView(date)">
                 <div class="tile-content">
                     <div class="tile-date">
-                        <span [ngClass]="{'current-date': isCurrentDate(date)}" class="calendar-date-text">{{date.date}}</span>
+                        <span class="calendar-date-text">{{date.date}}</span>
                     </div>
                 </div>
             </mat-grid-tile>
