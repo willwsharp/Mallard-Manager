@@ -7,7 +7,8 @@ import {  MatGridListModule,
           MatListModule,
           MatSelectModule,
           MatFormFieldModule,
-          MatInputModule} from '@angular/material';
+          MatInputModule,
+          MatSidenavModule} from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgModule } from '@angular/core';
 
@@ -24,7 +25,8 @@ import { NgModule } from '@angular/core';
         MatListModule,
         MatFormFieldModule,
         MatInputModule,
-        MatSelectModule
+        MatSelectModule,
+        MatSidenavModule
     ]
 })
 export class MaterialModule { }

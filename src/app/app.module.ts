@@ -13,6 +13,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { UUIDService } from './core/services/uuid.service';
 import { UserService } from './core/services/user.service';
 import { LaborCalendarService } from './core/services/labor-calendar.service';
+import { AppHeaderComponent } from './app-header/app-header.component';
+import { AppHeaderModule } from './app-header/app-header.module';
+import { NavMenuService } from './core/services/nav-menu.service';
 
 
 @NgModule({
@@ -25,14 +28,16 @@ import { LaborCalendarService } from './core/services/labor-calendar.service';
     DashboardModule,
     CoreModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AppHeaderModule
   ],
   providers: [
     TimesheetService,
     ProjectManagerService,
     OrganizationPreferencesService,
     UserService,
-    LaborCalendarService
+    LaborCalendarService,
+    NavMenuService
   ],
   bootstrap: [AppComponent]
 })

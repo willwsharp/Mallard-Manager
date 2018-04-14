@@ -1,0 +1,13 @@
+#app-header-container {
+    display: flex;
+    background: #00701a;
+    color: white;
+    align-items: center;
+}
+
+.header-text {
+    color: white;
+    font-size: 20px;
+    position: relative;
+    top: 2px;
+}

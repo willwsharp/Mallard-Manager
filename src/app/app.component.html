@@ -1,2 +1,9 @@
-<h1 style="margin-top: 0px;">Mallard Manager</h1>
-<router-outlet></router-outlet>
+<mat-sidenav-container class="fill-to-expand-page">
+    <mat-sidenav #navMenu>
+        menu goes here
+    </mat-sidenav>
+    <mat-sidenav-content class="fill-to-expand-page" style="display: flex;">
+        <mm-app-header (navMenuOpened)="navMenu.toggle()"></mm-app-header>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

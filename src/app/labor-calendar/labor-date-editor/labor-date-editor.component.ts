@@ -14,6 +14,7 @@ import { ProjectTask } from '../../core/models/projects/ProjectTask.model';
 import { ErrorStateMatcher } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import * as _ from 'lodash';
+import { NavMenuService } from '../../core/services/nav-menu.service';
 
 // custom error matcher for the billing time input
 class NonNegativeErrorStateMatcher implements ErrorStateMatcher {
@@ -43,9 +44,11 @@ export class LaborDateEditorComponent implements OnInit {
                 private _location: Location,
                 private _userService: UserService,
                 private _projectService: ProjectManagerService,
-                private _changeDetectorRef: ChangeDetectorRef) { }
+                private _changeDetectorRef: ChangeDetectorRef,
+                private _menuService: NavMenuService) { }
 
     public ngOnInit() {
+        this._menuService.headerTitle = 'Time Recorder';
         this._originalLaborDate = new LaborDate(CalendarDate.fromDashSeparatedString(this._route.snapshot.paramMap.get('givenDate')));
         this.laborDateToEdit = _.cloneDeep(this._originalLaborDate);
         // TODO get user's labor entries for the current date here and make a copy of it...

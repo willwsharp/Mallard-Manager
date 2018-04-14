@@ -11,6 +11,7 @@ import { User } from '../core/models/user/User.model';
 import { Month } from '../core/models/date-and-time/Month.enum';
 import * as moment from 'moment';
 import { AppUtils } from '../core/util/AppUtils.util';
+import { NavMenuService } from '../core/services/nav-menu.service';
 
 @Component({
     selector: 'mm-dashboard',
@@ -33,9 +34,11 @@ export class DashboardComponent implements OnInit {
                 private _router: Router,
                 private _activatedRoute: ActivatedRoute,
                 private _laborCalendarService: LaborCalendarService,
-                private _userService: UserService) {}
+                private _userService: UserService,
+                private _menuService: NavMenuService) {}
 
     public ngOnInit() {
+        this._menuService.headerTitle = 'Dashboard';
         this.projects = this._projectService.getAvailableProjects();
         this._user = this._userService.user;
     }
