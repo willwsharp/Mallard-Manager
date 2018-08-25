@@ -1,0 +1,19 @@
+<div id="project-overview-container">
+    <div id="project-overview-body">
+        <div class="overview-row" style="margin-top: 15px;">
+            {{ viewedProject.description }}
+        </div>
+        <div class="overview-row" style="align-items: normal;">
+            <div class="row-label">
+                <mat-icon>people</mat-icon>
+            </div>
+            <div class="row-value">
+                <div class="members-list">
+                    <ng-container *ngFor="let member of viewedProject.members">
+                        <mat-icon>account_circle</mat-icon>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

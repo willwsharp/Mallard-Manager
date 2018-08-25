@@ -1,5 +1,5 @@
-import { User } from '../user/User.model';
 import { OrganizationPreferences } from '../preferences/OrganizationPreferences.model';
+import { User } from '../user/User.model';
 
 export class Organization {
     public name: string;

@@ -1,6 +1,6 @@
-import { Preferences } from '../preferences/preferences.interface';
 import { BillingTimePrecision } from '../date-and-time/BillingTimePrecision.enum';
 import { Project } from '../projects/Project.model';
+import { Preferences } from './Preferences.interface';
 
 /**
  * Represents similar customization to @see OrganizationPreferences, but on a Project level.

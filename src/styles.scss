@@ -8,13 +8,18 @@
 //     border: 1px solid #ddd;
 // }
 
+
+// Create a config with the default typography levels.
+$config: mat-typography-config();
+
 body {
-    font-family: $mat-font-family;
+    font-family: mat-font-family($config);
     font-weight: normal;
     height: 100%;
     margin: 0px;
     display: flex;
     flex-direction: column;
+    background: #f5f5f5;
 }
 
 .flex-space-filler {
@@ -31,4 +36,11 @@ app-root {
     display: flex;
     flex-direction: column;
     flex: 1;
+}
+
+.mobile-page-action-bar {
+    display: flex;
+    align-items: center;
+    background: #4caf50;
+    z-index: 1;
 }

@@ -1,19 +1,19 @@
 import { Component, Input } from '@angular/core';
-import { TimeSlot } from '../models/TimeSlot.model';
-import { TimesheetEntry } from '../models/TimesheetEntry.model';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import * as _ from 'lodash';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
-import { AppUtils } from '../../../core/util/AppUtils.util';
+import * as _ from 'lodash';
 import { CalendarDate } from '../../../core/models/date-and-time/CalendarDate.model';
-import { OrganizationPreferencesService } from '../../../core/services/organization-preferences.service';
-import { ProjectManagerService } from '../../../core/services/project-manager.service';
-import { TimeSlotService } from '../../services/time-slot.service';
 import { Time } from '../../../core/models/date-and-time/Time.model';
+import { OrganizationPreferences } from '../../../core/models/preferences/OrganizationPreferences.model';
 import { Project } from '../../../core/models/projects/Project.model';
 import { ProjectTask } from '../../../core/models/projects/ProjectTask.model';
-import { OrganizationPreferences } from '../../../core/models/preferences/OrganizationPreferences.model';
+import { OrganizationPreferencesService } from '../../../core/services/organization-preferences.service';
+import { ProjectManagerService } from '../../../core/services/project-manager.service';
+import { AppUtils } from '../../../core/util/AppUtils.util';
+import { TimeSlotService } from '../../services/time-slot.service';
+import { TimesheetEntry } from '../models/TimesheetEntry.model';
+import { TimeSlot } from '../models/TimeSlot.model';
 
 // custom error matcher for the billing time input
 class NonNegativeErrorStateMatcher implements ErrorStateMatcher {

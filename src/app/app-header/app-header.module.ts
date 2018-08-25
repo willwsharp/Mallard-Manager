@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CoreModule } from '../core/core.module';
 import { AppHeaderComponent } from './app-header.component';
@@ -7,7 +8,8 @@ import { AppHeaderComponent } from './app-header.component';
         AppHeaderComponent
     ],
     imports: [
-        CoreModule
+        CoreModule,
+        CommonModule
     ],
     exports: [
         AppHeaderComponent

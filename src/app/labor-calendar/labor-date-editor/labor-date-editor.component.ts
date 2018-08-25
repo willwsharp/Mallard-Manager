@@ -1,20 +1,18 @@
-import { Component, Output, EventEmitter, Input, OnInit, ChangeDetectorRef, HostBinding } from '@angular/core';
 import { Location } from '@angular/common';
-import { AppUtils } from '../../core/util/AppUtils.util';
-import { CalendarDate } from '../../core/models/date-and-time/CalendarDate.model';
+import { ChangeDetectorRef, Component, HostBinding, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
-import { CastExpr } from '@angular/compiler';
+import * as _ from 'lodash';
+import { CalendarDate } from '../../core/models/date-and-time/CalendarDate.model';
 import { LaborDate } from '../../core/models/labor-calendar/LaborDate.model';
 import { LaborRecord } from '../../core/models/labor-calendar/LaborRecord.model';
-import { UserService } from '../../core/services/user.service';
 import { Project } from '../../core/models/projects/Project.model';
-import { ProjectManagerService } from '../../core/services/project-manager.service';
 import { ProjectTask } from '../../core/models/projects/ProjectTask.model';
-import { ErrorStateMatcher } from '@angular/material';
-import { FormControl } from '@angular/forms';
-import * as _ from 'lodash';
 import { NavMenuService } from '../../core/services/nav-menu.service';
+import { ProjectManagerService } from '../../core/services/project-manager.service';
+import { UserService } from '../../core/services/user.service';
+import { AppUtils } from '../../core/util/AppUtils.util';
 
 // custom error matcher for the billing time input
 class NonNegativeErrorStateMatcher implements ErrorStateMatcher {
@@ -49,6 +47,7 @@ export class LaborDateEditorComponent implements OnInit {
 
     public ngOnInit() {
         this._menuService.headerTitle = 'Time Recorder';
+        this._menuService.shouldDisplayNavMenu = false;
         this._originalLaborDate = new LaborDate(CalendarDate.fromDashSeparatedString(this._route.snapshot.paramMap.get('givenDate')));
         this.laborDateToEdit = _.cloneDeep(this._originalLaborDate);
         // TODO get user's labor entries for the current date here and make a copy of it...

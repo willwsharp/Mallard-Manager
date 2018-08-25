@@ -1,6 +1,7 @@
 import { BillingTimePrecision } from '../date-and-time/BillingTimePrecision.enum';
-import { Preferences } from '../preferences/preferences.interface';
 import { Organization } from '../organization/Organization.model';
+import { Preferences } from './Preferences.interface';
+
 
 /**
  * Data associated with a given organization's preferences.

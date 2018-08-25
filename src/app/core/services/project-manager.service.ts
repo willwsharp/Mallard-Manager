@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ProjectTask } from '../models/projects/ProjectTask.model';
-import { Project } from '../models/projects/Project.model';
-import { UserService } from './user.service';
-import { User } from '../models/user/User.model';
-import { LaborCalendar } from '../models/labor-calendar/LaborCalendar.model';
+import * as _ from 'lodash';
 import { CalendarDate } from '../models/date-and-time/CalendarDate.model';
+import { LaborCalendar } from '../models/labor-calendar/LaborCalendar.model';
+import { Project } from '../models/projects/Project.model';
+import { ProjectTask } from '../models/projects/ProjectTask.model';
+import { User } from '../models/user/User.model';
+import { UserService } from './user.service';
 
 @Injectable()
 export class ProjectManagerService {
@@ -24,7 +25,11 @@ export class ProjectManagerService {
             new ProjectTask('Deployment'),
             new ProjectTask('Development')
         ];
-        const pawsProject: Project = new Project('PAWS Website Redesigned', pawsTasks);
+        const pawsProject: Project = new Project('PAWS-Website-Redesigned', pawsTasks);
+        pawsProject.description = `Redesigning Pat Woodward's Website.`;
+        pawsProject.members.push(new User('Jon Doe', 'jondoe65', 'jondoe83@test-email.com'));
+        pawsProject.members.push(new User('Alice Diddly', 'aDiddle1', 'alice.diddly@test-email.com'));
+        pawsProject.members.push(new User('Hank Mardukas', 'TheIncrediblyHank69', 'mommasboy72@test-email.com'));
         const fromDate: CalendarDate = new CalendarDate(1, 2, 2018);
         const toDate: CalendarDate = new CalendarDate(31, 2, 2018);
         pawsProject.laborCalendar = new LaborCalendar([fromDate, toDate]);
@@ -34,7 +39,7 @@ export class ProjectManagerService {
             new ProjectTask('Management'),
             new ProjectTask('Research')
         ];
-        const testProject: Project = new Project('Test Project', testProjectTasks);
+        const testProject: Project = new Project('Test-Project', testProjectTasks);
         this._availableProjects.push(pawsProject);
         // this._availableProjects.push(testProject);
     }
@@ -47,5 +52,10 @@ export class ProjectManagerService {
 
         // just use static initialized list for now
         return this._availableProjects;
+    }
+
+    public getProjectByName(projName: string): Project {
+        // TODO this will eventually query all projects not just available projects
+        return _.find(this._availableProjects, { name: projName });
     }
 }

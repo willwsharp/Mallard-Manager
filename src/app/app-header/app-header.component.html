@@ -1,6 +1,9 @@
 <div id="app-header-container" class="mat-elevation-z4">
-    <button mat-icon-button (click)="openNavMenu()">
+    <button mat-icon-button (click)="openNavMenu()" *ngIf="shouldDisplayNavMenu">
         <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-icon-button (click)="goBack()" *ngIf="!shouldDisplayNavMenu">
+        <mat-icon>arrow_back</mat-icon>
     </button>
     <span class="header-text">{{ headerText }}</span>
 </div>

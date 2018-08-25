@@ -1,0 +1,36 @@
+.mat-display-2 {
+    margin-bottom: 0px;
+    font-size: 18px;
+    color: black;
+}
+
+.project-name-label {
+    font-size: 18px;
+}
+
+#project-overview-body .overview-row {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 0px 20px;
+    font-size: 16px;
+}
+
+#project-overview-body mat-divider {
+    position: relative;
+}
+
+#members-list {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.project-member-container {
+    display: flex;
+    align-items: center;
+}
+
+.row-label {
+    min-width: 100px;
+}
